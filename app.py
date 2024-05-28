@@ -1,6 +1,15 @@
+
 from fastapi import *
 from fastapi.responses import FileResponse
-app=FastAPI()
+from routers import user, attr, mrt, book, order
+
+
+
+
+app=FastAPI(
+	title="APIs for Taipei Day Trip",
+	summary="台北一日遊網站 API 規格：網站後端程式必須支援這個 API 的規格，網站前端則根據 API 和後端互動。"
+)
 
 # Static Pages (Never Modify Code in this Block)
 @app.get("/", include_in_schema=False)
@@ -15,3 +24,14 @@ async def booking(request: Request):
 @app.get("/thankyou", include_in_schema=False)
 async def thankyou(request: Request):
 	return FileResponse("./static/thankyou.html", media_type="text/html")
+
+
+
+app.include_router(user.user,prefix="/api", tags = ["User"])
+app.include_router(attr.attr,prefix="/api", tags = ["Attraction"])
+app.include_router(mrt.mrt,prefix="/api", tags = ["MRT Station"])
+app.include_router(book.book,prefix="/api", tags = ["Booking"])
+app.include_router(order.order,prefix="/api", tags = ["Order"])
+
+
+
