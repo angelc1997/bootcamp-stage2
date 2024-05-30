@@ -130,7 +130,7 @@ async def get_attraction(attractionId: int = Path(..., description="景點編號
         # print(data)
 
         if data:
-            return {"id": data[0], "name": data[1], "category": data[3], "description": data[9], "address": data[4], "transport": data[8], "mrt": data[5], "lat": data[7], "lng": data[6], "image": data[-1]}
+            return {"data": {"id": data[0], "name": data[1], "category": data[3], "description": data[9], "address": data[4], "transport": data[8], "mrt": data[5], "lat": data[7], "lng": data[6], "image": data[-1]}}
         
         
         else:
