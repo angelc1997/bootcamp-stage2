@@ -114,7 +114,7 @@ async def get_attractions(
 
 async def get_attraction(attractionId: int = Path(..., description="景點編號")):
 
-    mycursor = mydb.cursor(buffered=True)
+    mycursor = mydb.cursor()
 
     try:
         info_sql_string = "SELECT * FROM attractions WHERE id = %s"
