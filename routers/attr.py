@@ -5,7 +5,10 @@ from database import mydb
 
 
 
+
 attr = APIRouter()
+
+
 
 
 class Attraction(BaseModel):
@@ -32,6 +35,8 @@ class ErrorResponse(BaseModel):
     error: bool = True
     message: str = "請按照情境提供對應的錯誤訊息"
 
+
+
 @attr.get("/attractions",
           summary = "取得景點資料列表",
           description = "取得不同分頁的旅遊景點列表資料，也可以根據標題關鍵字、或捷運站名稱篩選",
@@ -39,11 +44,13 @@ class ErrorResponse(BaseModel):
               200: {"model": AttrListResponse, "description": "正常運作"},
               500: {"model": ErrorResponse, "description": "伺服器內部錯誤"}})
 
-async def get_attractions(page: int= Query(..., ge=0, description="要取得的分頁，每頁 12 筆資料"), keyword: str = Query(None, description="用來完全比對捷運站名稱、或模糊比對景點名稱的關鍵字，沒有給定則不做篩選")):
+async def get_attractions(
+    page: int= Query(..., ge=0, description="要取得的分頁，每頁 12 筆資料"), 
+    keyword: str = Query(None, description="用來完全比對捷運站名稱、或模糊比對景點名稱的關鍵字，沒有給定則不做篩選")):
     
     try:
         mycursor = mydb.cursor()
-        sql_string = "SELECT * ,  (SELECT url FROM pictures WHERE pictures.attr_id = attractions.id LIMIT 1) AS url FROM attractions "        
+        sql_string = "SELECT attractions.*, (SELECT CONCAT(GROUP_CONCAT(CONCAT(pictures.url))) FROM pictures WHERE pictures.attr_id = attractions.id) AS urls FROM attractions "   
 
         if keyword:
             sql_string += " WHERE mrt = %s OR name LIKE %s"
@@ -52,6 +59,8 @@ async def get_attractions(page: int= Query(..., ge=0, description="要取得的�
             mycursor.execute(sql_string)
 
         all_data = mycursor.fetchall()
+
+        # print(all_data)
 
         mycursor.close()
 
@@ -64,8 +73,9 @@ async def get_attractions(page: int= Query(..., ge=0, description="要取得的�
 
         paginate_data = all_data[start_index:end_index]
 
+
         if len(paginate_data) == 0:
-            return {"nextPage": page_number + 1, "data": "null"}
+            return {"nextPage": "null", "data": "null"}
 
 
         attractions = [
@@ -78,13 +88,16 @@ async def get_attractions(page: int= Query(..., ge=0, description="要取得的�
                "mrt": i[5],
                "lat": i[7],
                "lng": i[6],
-               "image": i[-1]} 
+               "image":(i[-1].split(","))} 
               for i in paginate_data]
+        
+
     
+        if end_index >= len(all_data):
+            return {"nextPage": "null", "data": attractions}
+        else:
+            return {"nextPage": page_number + 1, "data": attractions}
 
-
-        mycursor.close()
-        return {"nextPage": page_number + 1, "data": attractions}
 
             
     except Exception as e:
