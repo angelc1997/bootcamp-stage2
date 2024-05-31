@@ -7,6 +7,7 @@ from routers import user, attr, mrt, book, order
 
 
 app=FastAPI(
+	swagger_ui_parameters={"syntaxHighlight": False}, # Disable Syntax Highlight
 	title="APIs for Taipei Day Trip",
 	summary="台北一日遊網站 API 規格：網站後端程式必須支援這個 API 的規格，網站前端則根據 API 和後端互動。"
 )
