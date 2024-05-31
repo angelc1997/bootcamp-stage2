@@ -21,7 +21,7 @@ class Attraction(BaseModel):
     mrt: str = "新北投"
     lat: float = 25.137077
     lng: float = 121.508447
-    image: List[str] = ["https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000848.jpg"]
+    images: List[str] = ["https://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000848.jpg"]
 
 
 class AttrResponse(BaseModel):
@@ -75,7 +75,7 @@ async def get_attractions(
 
 
         if len(paginate_data) == 0:
-            return {"nextPage": "null", "data": "null"}
+            return {"nextPage": None, "data": None}
 
 
         attractions = [
@@ -88,13 +88,13 @@ async def get_attractions(
                "mrt": i[5],
                "lat": i[7],
                "lng": i[6],
-               "image":(i[-1].split(","))} 
+               "images":(i[-1].split(","))} 
               for i in paginate_data]
         
 
     
         if end_index >= len(all_data):
-            return {"nextPage": "null", "data": attractions}
+            return {"nextPage": None, "data": attractions}
         else:
             return {"nextPage": page_number + 1, "data": attractions}
 
@@ -130,7 +130,7 @@ async def get_attraction(attractionId: int = Path(..., description="景點編號
         # print(picture_data)
 
         if info is None:
-            return {"null"}
+            return {None}
         
 
         if info:
@@ -143,7 +143,7 @@ async def get_attraction(attractionId: int = Path(..., description="景點編號
         # print(data)
 
         if data:
-            return {"data": {"id": data[0], "name": data[1], "category": data[3], "description": data[9], "address": data[4], "transport": data[8], "mrt": data[5], "lat": data[7], "lng": data[6], "image": data[-1]}}
+            return {"data": {"id": data[0], "name": data[1], "category": data[3], "description": data[9], "address": data[4], "transport": data[8], "mrt": data[5], "lat": data[7], "lng": data[6], "images": data[-1]}}
         
         
         else:
