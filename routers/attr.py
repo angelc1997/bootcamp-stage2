@@ -66,7 +66,7 @@ async def get_attractions(
         all_data = mycursor.fetchall()
 
         # print(all_data)
-        # print(len(all_data))
+        print(len(all_data))
 
         mycursor.close()
 
@@ -90,7 +90,7 @@ async def get_attractions(
         
 
         # Check data size 
-        if page_size >= len(all_data):
+        if page_size > len(all_data) and len(all_data) > 0:
             return {"nextPage": None, "data": attractions}
         else:
             return {"nextPage": page + 1, "data": attractions}
