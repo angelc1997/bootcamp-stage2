@@ -49,6 +49,7 @@ async def get_attractions(
     keyword: str = Query(None, description="用來完全比對捷運站名稱、或模糊比對景點名稱的關鍵字，沒有給定則不做篩選")):
     
     try:
+        from database import mydb
         mycursor = mydb.cursor()
 
         page_size = 12
@@ -69,6 +70,7 @@ async def get_attractions(
         print(len(all_data))
 
         mycursor.close()
+        mydb.close()
 
         # No more data
         if len(all_data) == 0:
@@ -111,6 +113,7 @@ async def get_attractions(
 
 async def get_attraction(attractionId: int = Path(..., description="景點編號")):
 
+    from database import mydb
     mycursor = mydb.cursor()
 
     try:
@@ -136,6 +139,7 @@ async def get_attraction(attractionId: int = Path(..., description="景點編號
       
 
         mycursor.close()
+        mydb.close()
 
         # print(data)
 

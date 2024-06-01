@@ -29,6 +29,7 @@ class ErrorResponse(BaseModel):
 
 async def get_mrts():
 
+    from database import mydb
     mycursor = mydb.cursor()
 
     try:
@@ -37,6 +38,7 @@ async def get_mrts():
         mycursor.execute(sql_string)
         data = mycursor.fetchall()
         mycursor.close()
+        mydb.close()
 
         # print(data)
         data = [i[0] for i in data]
