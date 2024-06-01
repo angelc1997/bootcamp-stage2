@@ -50,31 +50,28 @@ async def get_attractions(
     
     try:
         mycursor = mydb.cursor()
-        sql_string = "SELECT attractions.*, (SELECT CONCAT(GROUP_CONCAT(CONCAT(pictures.url))) FROM pictures WHERE pictures.attr_id = attractions.id) AS urls FROM attractions "   
+
+        page_size = 12
+        offset =page * page_size
+
+        sql_string = "SELECT attractions.*, (SELECT CONCAT(GROUP_CONCAT(CONCAT(pictures.url))) FROM pictures WHERE pictures.attr_id = attractions.id) AS urls FROM attractions"   
 
         if keyword:
-            sql_string += " WHERE mrt = %s OR name LIKE %s"
-            mycursor.execute(sql_string, (keyword, f"%{keyword}%",))
+            sql_string += " WHERE mrt = %s OR name LIKE %s LIMIT %s OFFSET %s" 
+            mycursor.execute(sql_string, (keyword, f"%{keyword}%", page_size, offset))
         else:
-            mycursor.execute(sql_string)
+            sql_string += " LIMIT %s OFFSET %s"
+            mycursor.execute(sql_string, (page_size, offset))
 
         all_data = mycursor.fetchall()
 
         # print(all_data)
+        # print(len(all_data))
 
         mycursor.close()
 
-
-        page_number = page
-        page_size = 12
-
-        start_index = page_number  * page_size
-        end_index = start_index + page_size
-
-        paginate_data = all_data[start_index:end_index]
-
-
-        if len(paginate_data) == 0:
+        # No more data
+        if len(all_data) == 0:
             return {"nextPage": None, "data": None}
 
 
@@ -89,14 +86,14 @@ async def get_attractions(
                "lat": i[7],
                "lng": i[6],
                "images":(i[-1].split(","))} 
-              for i in paginate_data]
+              for i in all_data]
         
 
-    
-        if end_index >= len(all_data):
+        # Check data size 
+        if page_size >= len(all_data):
             return {"nextPage": None, "data": attractions}
         else:
-            return {"nextPage": page_number + 1, "data": attractions}
+            return {"nextPage": page + 1, "data": attractions}
 
 
             
