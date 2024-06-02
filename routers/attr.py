@@ -1,7 +1,8 @@
 from typing import List
 from fastapi import APIRouter, HTTPException, Path, Query
 from pydantic import BaseModel
-from database import mydb
+from database import dbconfig
+import mysql.connector
 
 
 
@@ -49,8 +50,13 @@ async def get_attractions(
     keyword: str = Query(None, description="用來完全比對捷運站名稱、或模糊比對景點名稱的關鍵字，沒有給定則不做篩選")):
     
     try:
-        from database import mydb
+
+        mydb = mysql.connector.connect(
+            **dbconfig
+        )
+
         mycursor = mydb.cursor()
+
 
         page_size = 12
         offset =page * page_size
@@ -67,10 +73,12 @@ async def get_attractions(
         all_data = mycursor.fetchall()
 
         # print(all_data)
-        print(len(all_data))
+        # print(len(all_data))
 
         mycursor.close()
         mydb.close()
+
+
 
         # No more data
         if len(all_data) == 0:
@@ -78,17 +86,17 @@ async def get_attractions(
 
 
         attractions = [
-              {"id": i[0], 
-               "name": i[1],
-               "category": i[3],
-               "description": i[9],
-               "address": i[4],
-               "transport": i[8],
-               "mrt": i[5],
-               "lat": i[7],
-               "lng": i[6],
-               "images":(i[-1].split(","))} 
-              for i in all_data]
+            {"id": i[0], 
+            "name": i[1],
+            "category": i[3],
+            "description": i[9],
+            "address": i[4],
+            "transport": i[8],
+            "mrt": i[5],
+            "lat": i[7],
+            "lng": i[6],
+            "images":(i[-1].split(","))} 
+            for i in all_data]
         
 
         # Check data size 
@@ -113,10 +121,11 @@ async def get_attractions(
 
 async def get_attraction(attractionId: int = Path(..., description="景點編號")):
 
-    from database import mydb
-    mycursor = mydb.cursor()
 
     try:
+        mydb = mysql.connector.connect(**dbconfig)
+        mycursor = mydb.cursor()
+
         info_sql_string = "SELECT * FROM attractions WHERE id = %s"
         picture_sql_string = "SELECT url FROM pictures WHERE attr_id = %s"
 
@@ -140,6 +149,7 @@ async def get_attraction(attractionId: int = Path(..., description="景點編號
 
         mycursor.close()
         mydb.close()
+
 
         # print(data)
 

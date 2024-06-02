@@ -1,8 +1,10 @@
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from database import mydb
+from database import dbconfig
 from typing import List
+import mysql.connector
+
 
 
 mrt = APIRouter()
@@ -29,10 +31,11 @@ class ErrorResponse(BaseModel):
 
 async def get_mrts():
 
-    from database import mydb
-    mycursor = mydb.cursor()
 
     try:
+        mydb = mysql.connector.connect(**dbconfig)
+        mycursor = mydb.cursor()
+
         sql_string = "SELECT m.mrt FROM mrt_attr JOIN mrts AS m ON mrt_id = m.id GROUP BY mrt_id ORDER BY COUNT(*) DESC"
 
         mycursor.execute(sql_string)
