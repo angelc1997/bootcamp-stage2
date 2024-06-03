@@ -1,0 +1,264 @@
+* {
+  font-family: "Noto Sans", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* navigation */
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  height: 54px;
+  top: 0;
+  z-index: 1;
+  background-color: #ffffff;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 54px;
+}
+
+.menu {
+  display: flex;
+  margin: 10px;
+}
+
+.nav a {
+  text-decoration: none;
+}
+
+.nav .logo a {
+  font-size: 30px;
+  font-weight: 700;
+  color: rgba(68, 136, 153, 1);
+}
+
+.nav .menu a {
+  display: flex;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 500;
+
+  color: rgba(102, 102, 102, 1);
+}
+
+/* banner */
+
+.banner {
+  margin-top: 54px;
+  height: 320px;
+  background-image: url("./img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 320px;
+}
+
+.search-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: rgba(248, 248, 248, 1);
+}
+
+.search-subtitle {
+  font-size: 16px;
+
+  font-weight: 700;
+  color: rgba(248, 248, 248, 1);
+  margin-top: 15px;
+}
+
+.search-bar {
+  display: flex;
+  width: 460px;
+  height: 46px;
+  border: none;
+  margin-top: 25px;
+}
+
+input {
+  width: 370px;
+  padding: 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px 0 0 5px;
+  font-size: 16px;
+
+  font-weight: 700;
+  color: rgba(117, 117, 117, 1);
+}
+
+button {
+  width: 60px;
+  padding: 10px;
+  background-color: rgba(68, 136, 153, 1);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+}
+
+button i {
+  font-size: 30px;
+}
+
+/* tags */
+.tags {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  height: 50px;
+  overflow: hidden;
+}
+
+.tags i {
+  font-size: 32px;
+  color: rgba(102, 102, 102, 1);
+  cursor: pointer;
+}
+
+.tag-list {
+  display: flex;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.tag {
+  font-size: 16px;
+  white-space: nowrap;
+  padding: 5px 15px;
+}
+
+.tag:hover {
+  border-radius: 1000px;
+  background-color: rgba(68, 136, 153, 0.8);
+  color: #fff;
+  transition: 0.3s ease;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* content */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+  margin-top: 20px;
+  padding: 15px;
+}
+
+.card-container {
+  width: 100%;
+  height: 242px;
+  border-radius: 10px;
+  border: 1px solid rgba(232, 232, 232, 1);
+}
+
+.card-img {
+  position: relative;
+  background-image: url("./img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 197px;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 1);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  height: 25px;
+  color: rgba(117, 117, 117, 1);
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* footer */
+.footer {
+  width: 100%;
+  height: 104px;
+  background-color: rgba(117, 117, 117, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.footer-text {
+  font-size: 16px;
+  font-weight: 700;
+
+  color: rgba(255, 255, 255, 1);
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    width: 900px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .container {
+    width: 600px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 400px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .container {
+    width: 300px;
+  }
+}
