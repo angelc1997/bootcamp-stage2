@@ -100,7 +100,7 @@ async def get_attractions(
         
 
         # Check data size 
-        if page_size > len(all_data) and len(all_data) > 0:
+        if page_size + 1 > len(all_data) and len(all_data) > 0:
             return {"nextPage": None, "data": attractions}
         else:
             return {"nextPage": page + 1, "data": attractions}
