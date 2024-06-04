@@ -58,8 +58,9 @@ async def get_attractions(
         mycursor = mydb.cursor()
 
 
-        page_size = 12
-        offset =page * page_size
+        page_size = 13
+        offset = page * 12
+        
 
         sql_string = "SELECT attractions.*, (SELECT CONCAT(GROUP_CONCAT(CONCAT(pictures.url))) FROM pictures WHERE pictures.attr_id = attractions.id) AS urls FROM attractions"   
 
@@ -72,18 +73,8 @@ async def get_attractions(
 
         all_data = mycursor.fetchall()
 
-        # print(all_data)
-        # print(len(all_data))
-
         mycursor.close()
         mydb.close()
-
-
-
-        # No more data
-        if len(all_data) == 0:
-            return {"nextPage": None, "data": None}
-
 
         attractions = [
             {"id": i[0], 
@@ -96,12 +87,15 @@ async def get_attractions(
             "lat": i[7],
             "lng": i[6],
             "images":(i[-1].split(","))} 
-            for i in all_data]
-        
+            for i in all_data[:12]]
 
-        # Check data size 
-        if page_size + 1 > len(all_data) and len(all_data) > 0:
+        # Check data size
+        if len(all_data) == 0:
+            return {"nextPage": None, "data": None}
+
+        if len(all_data) < 13:
             return {"nextPage": None, "data": attractions}
+        
         else:
             return {"nextPage": page + 1, "data": attractions}
 
