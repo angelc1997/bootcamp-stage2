@@ -6,16 +6,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
       rel="stylesheet"
     />
-    
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
     <link rel="stylesheet" href="/static/styles/style.css" />
     <script src="/static/function/script.js" defer></script>
-
-    
     <title>Index</title>
   </head>
   <body>
@@ -39,31 +34,39 @@
       <div class="container">
         <div class="search">
           <div class="search-title">輕鬆享受台北一日悠閒</div>
-          <div class="search-subtitle">探索每個角落，體驗城市的深度旅遊行程</div>
+          <div class="search-subtitle">
+            探索每個角落，體驗城市的深度旅遊行程
+          </div>
 
           <!-- Search Bar -->
           <div class="search-bar">
-            <input id="search-input"type="text" placeholder="輸入景點名稱查詢" />
-            <button><i class="ph ph-magnifying-glass"></i></i></button>
+            <input
+              id="search-input"
+              type="text"
+              placeholder="輸入景點名稱查詢"
+            />
+            <button id="search-btn">
+              <img src="../static/imgs/icon-search.png" alt="icon-search" />
+            </button>
           </div>
-    
-       </div>
+        </div>
       </div>
     </div>
 
     <!-- Draggable tags -->
     <div class="container">
-
       <div class="tags">
-        <div class="tag-icon"><i id="prev" class="ph ph-caret-circle-left"></i></div>
+        <div class="tag-icon" id="prev">
+          <img src="../static/imgs/Hovered-left.png" alt="icon-search" />
+        </div>
 
         <div class="tag-list"></div>
 
-        <div class="tag-icon"><i id="next" class="ph ph-caret-circle-right"></i></div>
-
+        <div class="tag-icon" id="next">
+          <img src="../static/imgs/Hovered-right.png" alt="icon-search" />
+        </div>
       </div>
     </div>
-
 
     <!-- Content -->
     <div class="container">
@@ -82,10 +85,7 @@
 
     <!-- Footer -->
     <div class="footer">
-      <div class="footer-text">
-        COPYRIGHT © 2024 台北一日遊
-      </div>
+      <div class="footer-text">COPYRIGHT © 2024 台北一日遊</div>
     </div>
-
   </body>
 </html>
