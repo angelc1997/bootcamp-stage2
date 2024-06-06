@@ -3,13 +3,9 @@ from fastapi import APIRouter, HTTPException, Path, Query
 from pydantic import BaseModel
 from database import dbconfig
 import mysql.connector
-
-
-
+from mysql.connector import pooling
 
 attr = APIRouter()
-
-
 
 
 class Attraction(BaseModel):
@@ -50,31 +46,27 @@ async def get_attractions(
     keyword: str = Query(None, description="用來完全比對捷運站名稱、或模糊比對景點名稱的關鍵字，沒有給定則不做篩選")):
     
     try:
-
-        mydb = mysql.connector.connect(
-            **dbconfig
-        )
-
-        mycursor = mydb.cursor()
-
+        cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
+    
+        cnx = cnxpool.get_connection()
+        cursor = cnx.cursor()
 
         page_size = 13
         offset = page * 12
         
-
         sql_string = "SELECT attractions.*, (SELECT CONCAT(GROUP_CONCAT(CONCAT(pictures.url))) FROM pictures WHERE pictures.attr_id = attractions.id) AS urls FROM attractions"   
 
         if keyword:
             sql_string += " WHERE mrt = %s OR name LIKE %s LIMIT %s OFFSET %s" 
-            mycursor.execute(sql_string, (keyword, f"%{keyword}%", page_size, offset))
+            cursor.execute(sql_string, (keyword, f"%{keyword}%", page_size, offset))
         else:
             sql_string += " LIMIT %s OFFSET %s"
-            mycursor.execute(sql_string, (page_size, offset))
+            cursor.execute(sql_string, (page_size, offset))
 
-        all_data = mycursor.fetchall()
+        all_data = cursor.fetchall()
 
-        mycursor.close()
-        mydb.close()
+        cursor.close()
+        cnx.close()
 
         attractions = [
             {"id": i[0], 
@@ -117,18 +109,20 @@ async def get_attraction(attractionId: int = Path(..., description="景點編號
 
 
     try:
-        mydb = mysql.connector.connect(**dbconfig)
-        mycursor = mydb.cursor()
+        cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
+    
+        cnx = cnxpool.get_connection()
+        cursor = cnx.cursor()
 
         info_sql_string = "SELECT * FROM attractions WHERE id = %s"
         picture_sql_string = "SELECT url FROM pictures WHERE attr_id = %s"
 
-        mycursor.execute(info_sql_string, (attractionId,))
-        info = mycursor.fetchone()
+        cursor.execute(info_sql_string, (attractionId,))
+        info = cursor.fetchone()
 
 
-        mycursor.execute(picture_sql_string, (attractionId,))
-        picture_data = [row[0] for row in mycursor.fetchall()]
+        cursor.execute(picture_sql_string, (attractionId,))
+        picture_data = [row[0] for row in cursor.fetchall()]
 
         # print(picture_data)
 
@@ -141,8 +135,8 @@ async def get_attraction(attractionId: int = Path(..., description="景點編號
             print(data)
       
 
-        mycursor.close()
-        mydb.close()
+        cursor.close()
+        cnx.close()
 
 
         # print(data)
