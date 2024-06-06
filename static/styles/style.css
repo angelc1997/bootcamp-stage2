@@ -192,7 +192,6 @@ button img {
 
 .card-img {
   position: relative;
-  background-image: url("./img.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 197px;
@@ -317,4 +316,39 @@ button img {
   .nav .logo a {
     font-size: 20px;
   }
+}
+
+.skeleton {
+  animation: loading 1s linear infinite alternate;
+}
+
+@keyframes loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+.skeleton-title {
+  width: 50%;
+  height: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: hsl(200, 20%, 100%);
+}
+
+.skeleton-body {
+  width: 30%;
+  height: 1.3rem;
+  border-radius: 0.25rem;
+}
+
+.skeleton-list {
+  width: 90%;
+  height: 1.8rem;
+  border-start-start-radius: 0.25rem;
 }
