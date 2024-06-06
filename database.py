@@ -1,5 +1,7 @@
 from dotenv import load_dotenv
+from mysql.connector import pooling
 import os
+
 
 
 
@@ -10,5 +12,7 @@ dbconfig = {
     "user": os.getenv("DB_USER"),
     "password": os.getenv("DB_PASSWORD"),
     "database": os.getenv("DB_NAME"),
+    "pool_name": os.getenv("DB_POOL_NAME"),
+    "pool_size": int(os.getenv("DB_POOL_SIZE")),
 }
 
