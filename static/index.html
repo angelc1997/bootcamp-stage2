@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,6 +12,9 @@
     />
     <link rel="stylesheet" href="/static/styles/style.css" />
     <script src="/static/function/script.js" defer></script>
+    <link rel="preload" as="script" href="/static/function/script.js" />
+    <link rel="preload" as="style" href="/static/styles/style.css" />
+
     <title>Index</title>
   </head>
   <body>
@@ -60,7 +64,7 @@
           <img src="../static/imgs/Hovered-left.png" alt="icon-search" />
         </div>
 
-        <div class="tag-list"></div>
+        <div class="tag-list skeleton skeleton-list"></div>
 
         <div class="tag-icon" id="next">
           <img src="../static/imgs/Hovered-right.png" alt="icon-search" />
@@ -71,15 +75,17 @@
     <!-- Content -->
     <div class="container">
       <div class="card-grid">
-        <!-- <div class="card-container">
-          <div class="card-img">
-            <div class="card-title">平安鐘</div>
+        <template id="card-template">
+          <div class="card-container">
+            <div class="card-img skeleton">
+              <div class="card-title skeleton skeleton-title"></div>
+            </div>
+            <div class="card-content">
+              <div class="card-mrt skeleton skeleton-body"></div>
+              <div class="card-type skeleton skeleton-body"></div>
+            </div>
           </div>
-          <div class="card-content">
-            <div class="card-mrt">忠孝復興</div>
-            <div class="card-type">公共藝術</div>
-          </div>
-        </div> -->
+        </template>
       </div>
     </div>
 
