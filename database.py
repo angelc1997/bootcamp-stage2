@@ -13,6 +13,6 @@ dbconfig = {
     "password": os.getenv("DB_PASSWORD"),
     "database": os.getenv("DB_NAME"),
     "pool_name": os.getenv("DB_POOL_NAME"),
-    "pool_size": int(os.getenv("DB_POOL_SIZE")),
+    "pool_size": 5,
 }
 
