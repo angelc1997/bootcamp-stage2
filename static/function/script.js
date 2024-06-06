@@ -1,5 +1,39 @@
 const baseUrl = "http://127.0.0.1:8000/api";
 
+//  Fetch Tags
+async function fetchTags() {
+  try {
+    let mrtAPI = `${baseUrl}/mrts`;
+    let data = await fetchData(mrtAPI);
+    let mrtdata = data.data;
+    mrtdata.forEach((mrt) => {
+      const tagList = document.querySelector(".tag-list");
+      const tag = document.createElement("div");
+      tag.className = "tag";
+      tag.textContent = mrt;
+      tagList.appendChild(tag);
+    });
+    const clickTag = document.querySelectorAll(".tag");
+    const searchInput = document.getElementById("search-input");
+    clickTag.forEach((tag) => {
+      tag.addEventListener("click", () => {
+        searchInput.classList.add("searching");
+        document.getElementById("search-input").value = tag.textContent;
+      });
+    });
+  } catch (error) {
+    console.error("無法取得捷運標籤：", error);
+  }
+}
+// Drag Tags
+const tagList = document.querySelector(".tag-list");
+const icons = document.querySelectorAll(".tag-icon");
+icons.forEach((icon) => {
+  icon.addEventListener("click", () => {
+    tagList.scrollLeft += icon.id === "next" ? 600 : -600;
+  });
+});
+
 // Fetch Data Response
 async function fetchData(url) {
   const response = await fetch(url, {
@@ -15,78 +49,48 @@ async function fetchData(url) {
   return data;
 }
 
-//  Fetch Tags
-async function fetchTags() {
-  try {
-    let mrtAPI = `${baseUrl}/mrts`;
-    let data = await fetchData(mrtAPI);
-    let mrtdata = data.data;
-
-    mrtdata.forEach((mrt) => {
-      const tagList = document.querySelector(".tag-list");
-      const tag = document.createElement("div");
-      tag.setAttribute("class", "tag");
-      tag.textContent = mrt;
-      tagList.appendChild(tag);
-    });
-
-    const clickTag = document.querySelectorAll(".tag");
-    const searchInput = document.getElementById("search-input");
-    clickTag.forEach((tag) => {
-      tag.addEventListener("click", () => {
-        searchInput.classList.add("searching");
-        document.getElementById("search-input").value = tag.textContent;
-      });
-    });
-  } catch (error) {
-    console.error("無法取得捷運標籤：", error);
-  }
-}
-
-// Drag Tags
-const tagList = document.querySelector(".tag-list");
-const icons = document.querySelectorAll(".tag-icon");
-
-icons.forEach((icon) => {
-  icon.addEventListener("click", () => {
-    tagList.scrollLeft += icon.id === "next" ? 600 : -600;
-  });
-});
-
 let pageNumbers = [];
 let keywords = [];
 
 // Fetch Attractions
-async function fetchFirstPage() {
+async function fetchPage(url) {
   try {
-    let attrAPI = `${baseUrl}/attractions?page=0`;
-    let data = await fetchData(attrAPI);
-    let attrdata = data.data;
-    let nextPage = data.nextPage;
+    const skeletonList = document.createElement("div");
+    skeletonList.classList.add("tag-list", "skeleton", "skeleton-list");
+
+    const cardGrid = document.querySelector(".card-grid");
+    for (let i = 0; i < 13; i++) {
+      cardGrid.appendChild(createSkeletonCard());
+    }
+
+    const data = await fetchData(url);
+
+    const tagList = document.querySelector(".tag-list");
+    tagList.classList.remove("skeleton", "skeleton-list");
+    document.querySelectorAll(".skeleton-card").forEach((card) => {
+      card.remove();
+    });
 
     pageNumbers.shift();
-    pageNumbers.push(nextPage);
-
-    displayPage(attrdata);
-
+    pageNumbers.push(data.nextPage);
+    displayPage(data.data);
     observer.observe(footer);
   } catch (error) {
     console.error("無法取得景點資料：", error);
   }
 }
 
+async function fetchFirstPage() {
+  try {
+    fetchPage(`${baseUrl}/attractions?page=0`);
+  } catch (error) {
+    console.error("無法取得第一頁景點資料：", error);
+  }
+}
+
 async function fetchNextPage() {
   try {
-    let pageNumber = pageNumbers[0];
-    let attrAPI = `${baseUrl}/attractions?page=${pageNumber}`;
-    let data = await fetchData(attrAPI);
-    let attrdata = data.data;
-    let nextPage = data.nextPage;
-
-    pageNumbers.shift();
-    pageNumbers.push(nextPage);
-
-    displayPage(attrdata);
+    fetchPage(`${baseUrl}/attractions?page=${pageNumbers[0]}`);
   } catch (error) {
     console.error("無法取得新一頁景點資料：", error);
   }
@@ -94,23 +98,14 @@ async function fetchNextPage() {
 
 async function fetchKeywordFirstPage(keyword) {
   try {
-    let keyAPI = `${baseUrl}/attractions?page=0&keyword=${keyword}`;
-    let data = await fetchData(keyAPI);
-    let attrdata = data.data;
-    let nextPage = data.nextPage;
-
-    pageNumbers.shift();
-    pageNumbers.push(nextPage);
-
-    keywords.shift();
-    keywords.push(keyword);
-
+    const keyAPI = `${baseUrl}/attractions?page=0&keyword=${keyword}`;
     const cardGrid = document.querySelector(".card-grid");
     while (cardGrid.firstChild) {
       cardGrid.removeChild(cardGrid.firstChild);
     }
-    displayPage(attrdata);
-    observer.observe(footer);
+    keywords.shift();
+    keywords.push(keyword);
+    fetchPage(keyAPI);
   } catch (error) {
     console.error("無法取得關鍵字景點資料：", error);
   }
@@ -118,34 +113,18 @@ async function fetchKeywordFirstPage(keyword) {
 
 async function fetchKeywordNextPage() {
   try {
-    let pageNumber = pageNumbers[0];
-    let keyword = keywords[0];
-    let keyAPI = `${baseUrl}/attractions?page=${pageNumber}&keyword=${keyword}`;
-    let data = await fetchData(keyAPI);
-    let attrdata = data.data;
-    let nextPage = data.nextPage;
-
-    pageNumbers.shift();
-    pageNumbers.push(nextPage);
-
-    keywords.shift();
-    keywords.push(keyword);
-
-    displayPage(attrdata);
+    const pageNumber = pageNumbers[0];
+    const keyword = keywords[0];
+    const keyAPI = `${baseUrl}/attractions?page=${pageNumber}&keyword=${keyword}`;
+    fetchPage(keyAPI);
   } catch (error) {
     console.error("無法取得新一頁關鍵字景點資料：", error);
   }
 }
 
 // Search By Keyword
-const searchBtn = document.getElementById("search-btn");
-const searchInput = document.getElementById("search-input");
-
-searchBtn.addEventListener("click", () => {
-  goSeach();
-});
-
-searchInput.addEventListener("keyup", (e) => {
+document.getElementById("search-btn").addEventListener("click", goSeach);
+document.getElementById("search-input").addEventListener("keyup", (e) => {
   if (e.key == "Enter") {
     goSeach();
   }
@@ -160,10 +139,13 @@ async function goSeach() {
   }
 }
 
+// Display skeleton
+
 // Display Data Card
-async function displayPage(attrdata) {
+function displayPage(attrdata) {
   try {
     const cardGrid = document.querySelector(".card-grid");
+
     attrdata.forEach((attr) => {
       const card = createCardElement(attr);
       cardGrid.appendChild(card);
@@ -172,15 +154,10 @@ async function displayPage(attrdata) {
     console.error("無法顯示資料：", error);
   }
 }
-
 // Create Data Card
 function createCardElement(card) {
-  const cardTitleLength = 15;
-
-  const cardGrid = document.querySelector(".card-grid");
   const cardContainer = document.createElement("div");
   cardContainer.setAttribute("class", "card-container");
-  cardGrid.appendChild(cardContainer);
 
   const cardImg = document.createElement("div");
   cardImg.setAttribute("class", "card-img");
@@ -190,9 +167,8 @@ function createCardElement(card) {
   const cardTitle = document.createElement("div");
   cardTitle.setAttribute("class", "card-title");
   cardTitle.textContent = card.name;
-  if (cardTitle.textContent.length > cardTitleLength) {
-    cardTitle.textContent =
-      cardTitle.textContent.slice(0, cardTitleLength) + "...";
+  if (cardTitle.textContent.length > 15) {
+    cardTitle.textContent = cardTitle.textContent.slice(0, 15) + "...";
   }
   cardImg.appendChild(cardTitle);
 
@@ -210,34 +186,52 @@ function createCardElement(card) {
   cardType.textContent = card.category;
   cardContent.appendChild(cardType);
 
-  // console.log(cardContainer);
   return cardContainer;
 }
+function createSkeletonCard() {
+  const skeletonCard = document.createElement("div");
+  skeletonCard.classList.add("card-container", "skeleton-card");
 
+  const skeletonImg = document.createElement("div");
+  skeletonImg.classList.add("card-img", "skeleton");
+  skeletonCard.appendChild(skeletonImg);
+
+  const skeletonTitle = document.createElement("div");
+  skeletonTitle.classList.add("card-title", "skeleton", "skeleton-body");
+  skeletonImg.appendChild(skeletonTitle);
+
+  const skeletonContent = document.createElement("div");
+  skeletonContent.classList.add("card-content");
+  skeletonCard.appendChild(skeletonContent);
+
+  const skeletonMrt = document.createElement("div");
+  skeletonMrt.classList.add("card-mrt", "skeleton", "skeleton-body");
+  skeletonContent.appendChild(skeletonMrt);
+
+  const skeletonType = document.createElement("div");
+  skeletonType.classList.add("card-type", "skeleton", "skeleton-body");
+  skeletonContent.appendChild(skeletonType);
+
+  return skeletonCard;
+}
 // Observer
 const options = {
   root: null,
   rootMargin: "0px 0px 0px 0px",
   threshold: 1,
 };
-
 const footer = document.querySelector(".footer");
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      if (pageNumbers[0] !== null && keywords[0] == null) {
-        fetchNextPage();
-        return;
-      } else if (pageNumbers[0] !== null && keywords[0] !== null) {
-        fetchKeywordNextPage();
-        return;
+      if (pageNumbers[0] !== null) {
+        keywords[0] == null ? fetchNextPage() : fetchKeywordNextPage();
       } else {
         observer.unobserve(footer);
       }
     }
   });
 }, options);
-
 // Initialize Data
 fetchTags();
 fetchFirstPage();
