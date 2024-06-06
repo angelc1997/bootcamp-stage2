@@ -349,6 +349,6 @@ button img {
 
 .skeleton-list {
   width: 90%;
-  height: 1.8rem;
-  border-start-start-radius: 0.25rem;
+  height: 1.6rem;
+  border-radius: 0.5rem;
 }
