@@ -19,6 +19,8 @@ async function fetchTags() {
       tag.addEventListener("click", () => {
         searchInput.classList.add("searching");
         document.getElementById("search-input").value = tag.textContent;
+        console.log(tag.textContent);
+        fetchKeywordFirstPage(tag.textContent);
       });
     });
   } catch (error) {
@@ -139,8 +141,6 @@ async function goSeach() {
   }
 }
 
-// Display skeleton
-
 // Display Data Card
 function displayPage(attrdata) {
   try {
@@ -188,6 +188,8 @@ function createCardElement(card) {
 
   return cardContainer;
 }
+
+// Display skeleton
 function createSkeletonCard() {
   const skeletonCard = document.createElement("div");
   skeletonCard.classList.add("card-container", "skeleton-card");
@@ -232,6 +234,7 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, options);
+
 // Initialize Data
 fetchTags();
 fetchFirstPage();
