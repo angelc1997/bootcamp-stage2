@@ -1,12 +1,16 @@
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from database import mydb
+from database import dbconfig
 from typing import List
+import mysql.connector
+from mysql.connector import pooling
+
 
 
 mrt = APIRouter()
 
+cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
 
 class SuccessResponse(BaseModel):
     data: List[str] = ["劍潭"] 
@@ -29,14 +33,19 @@ class ErrorResponse(BaseModel):
 
 async def get_mrts():
 
-    mycursor = mydb.cursor()
 
     try:
+        cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
+    
+        cnx = cnxpool.get_connection()
+        cursor = cnx.cursor()
+
         sql_string = "SELECT m.mrt FROM mrt_attr JOIN mrts AS m ON mrt_id = m.id GROUP BY mrt_id ORDER BY COUNT(*) DESC"
 
-        mycursor.execute(sql_string)
-        data = mycursor.fetchall()
-        mycursor.close()
+        cursor.execute(sql_string)
+        data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
 
         # print(data)
         data = [i[0] for i in data]

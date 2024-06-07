@@ -1,11 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles/style.css" />
+    <script src="/static/function/script.js" defer></script>
+    <link rel="preload" as="script" href="/static/function/script.js" />
+    <link rel="preload" as="style" href="/static/styles/style.css" />
+
+    <title>Index</title>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <div class="navbar">
+      <div class="container">
+        <div class="nav">
+          <div class="nav logo">
+            <a href="#">台北一日遊</a>
+          </div>
+          <div class="menu">
+            <a href="#">預定行程</a>
+            <a href="#">登入/註冊</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+      <div class="container">
+        <div class="search">
+          <div class="search-title">輕鬆享受台北一日悠閒</div>
+          <div class="search-subtitle">
+            探索每個角落，體驗城市的深度旅遊行程
+          </div>
+
+          <!-- Search Bar -->
+          <div class="search-bar">
+            <input
+              id="search-input"
+              type="text"
+              placeholder="輸入景點名稱查詢"
+            />
+            <button id="search-btn">
+              <img src="../static/imgs/icon-search.png" alt="icon-search" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Draggable tags -->
+    <div class="container">
+      <div class="tags">
+        <div class="tag-icon" id="prev">
+          <img src="../static/imgs/Hovered-left.png" alt="icon-search" />
+        </div>
+
+        <div class="tag-list skeleton skeleton-list"></div>
+
+        <div class="tag-icon" id="next">
+          <img src="../static/imgs/Hovered-right.png" alt="icon-search" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container">
+      <div class="card-grid">
+        <template id="card-template">
+          <div class="card-container">
+            <div class="card-img skeleton">
+              <div class="card-title skeleton skeleton-title"></div>
+            </div>
+            <div class="card-content">
+              <div class="card-mrt skeleton skeleton-body"></div>
+              <div class="card-type skeleton skeleton-body"></div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!--Login -->
+    <div class="">
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-text">COPYRIGHT © 2024 台北一日遊</div>
+    </div>
+  </body>
 </html>

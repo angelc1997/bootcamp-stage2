@@ -1,14 +1,11 @@
 from typing import List
 from fastapi import APIRouter, HTTPException, Path, Query
 from pydantic import BaseModel
-from database import mydb
-
-
-
+from database import dbconfig
+import mysql.connector
+from mysql.connector import pooling
 
 attr = APIRouter()
-
-
 
 
 class Attraction(BaseModel):
@@ -49,49 +46,48 @@ async def get_attractions(
     keyword: str = Query(None, description="用來完全比對捷運站名稱、或模糊比對景點名稱的關鍵字，沒有給定則不做篩選")):
     
     try:
-        mycursor = mydb.cursor()
+        cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
+    
+        cnx = cnxpool.get_connection()
+        cursor = cnx.cursor()
 
-        page_size = 12
-        offset =page * page_size
-
+        page_size = 13
+        offset = page * 12
+        
         sql_string = "SELECT attractions.*, (SELECT CONCAT(GROUP_CONCAT(CONCAT(pictures.url))) FROM pictures WHERE pictures.attr_id = attractions.id) AS urls FROM attractions"   
 
         if keyword:
             sql_string += " WHERE mrt = %s OR name LIKE %s LIMIT %s OFFSET %s" 
-            mycursor.execute(sql_string, (keyword, f"%{keyword}%", page_size, offset))
+            cursor.execute(sql_string, (keyword, f"%{keyword}%", page_size, offset))
         else:
             sql_string += " LIMIT %s OFFSET %s"
-            mycursor.execute(sql_string, (page_size, offset))
+            cursor.execute(sql_string, (page_size, offset))
 
-        all_data = mycursor.fetchall()
+        all_data = cursor.fetchall()
 
-        # print(all_data)
-        print(len(all_data))
+        cursor.close()
+        cnx.close()
 
-        mycursor.close()
+        attractions = [
+            {"id": i[0], 
+            "name": i[1],
+            "category": i[3],
+            "description": i[9],
+            "address": i[4],
+            "transport": i[8],
+            "mrt": i[5],
+            "lat": i[7],
+            "lng": i[6],
+            "images":(i[-1].split(","))} 
+            for i in all_data[:12]]
 
-        # No more data
+        # Check data size
         if len(all_data) == 0:
             return {"nextPage": None, "data": None}
 
-
-        attractions = [
-              {"id": i[0], 
-               "name": i[1],
-               "category": i[3],
-               "description": i[9],
-               "address": i[4],
-               "transport": i[8],
-               "mrt": i[5],
-               "lat": i[7],
-               "lng": i[6],
-               "images":(i[-1].split(","))} 
-              for i in all_data]
-        
-
-        # Check data size 
-        if page_size > len(all_data) and len(all_data) > 0:
+        if len(all_data) < 13:
             return {"nextPage": None, "data": attractions}
+        
         else:
             return {"nextPage": page + 1, "data": attractions}
 
@@ -111,18 +107,22 @@ async def get_attractions(
 
 async def get_attraction(attractionId: int = Path(..., description="景點編號")):
 
-    mycursor = mydb.cursor()
 
     try:
+        cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
+    
+        cnx = cnxpool.get_connection()
+        cursor = cnx.cursor()
+
         info_sql_string = "SELECT * FROM attractions WHERE id = %s"
         picture_sql_string = "SELECT url FROM pictures WHERE attr_id = %s"
 
-        mycursor.execute(info_sql_string, (attractionId,))
-        info = mycursor.fetchone()
+        cursor.execute(info_sql_string, (attractionId,))
+        info = cursor.fetchone()
 
 
-        mycursor.execute(picture_sql_string, (attractionId,))
-        picture_data = [row[0] for row in mycursor.fetchall()]
+        cursor.execute(picture_sql_string, (attractionId,))
+        picture_data = [row[0] for row in cursor.fetchall()]
 
         # print(picture_data)
 
@@ -135,7 +135,9 @@ async def get_attraction(attractionId: int = Path(..., description="景點編號
             print(data)
       
 
-        mycursor.close()
+        cursor.close()
+        cnx.close()
+
 
         # print(data)
 
