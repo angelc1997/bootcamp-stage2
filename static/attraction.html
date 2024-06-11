@@ -1,11 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Attraction</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles/style.css" />
+    <script src="/static/function/attraction.js" defer></script>
+    <link rel="preload" as="script" href="/static/function/attraction.js" />
+    <link rel="preload" as="style" href="/static/styles/style.css" />
+
+    <title>Attraction</title>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <div class="navbar">
+      <div class="container">
+        <div class="nav">
+          <div class="nav logo">
+            <a href="http://127.0.0.1:8000">台北一日遊</a>
+          </div>
+          <div class="menu">
+            <a href="#">預定行程</a>
+            <a href="#" onclick="LoginForm()">登入/註冊</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="attr-container">
+      <!-- Slider -->
+      <div class="slides-container">
+        <div class="slides">
+          <!-- <img src="../static/imgs/banner.png" alt="" /> -->
+        </div>
+        
+
+        <!-- prev and next -->
+
+        <a class="prev" onclick="plusSlides(-1)">
+          <img src="../static/imgs/Hovered-left.png" alt="icon-search" />
+        </a>
+
+        <a class="next" onclick="plusSlides(1)">
+          <img src="../static/imgs/Hovered-right.png" alt="icon-search" />
+        </a>
+
+        <!-- dots -->
+
+        <div class="dots-container">
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+        </div>
+
+        </div>
+
+        <!-- Attraction -->
+
+        <div class="attr-content">
+          <div class="attr-title"></div>
+          <div class="attr-sub">
+            <div class="attr-category"></div>
+            <div class="attr-en">at</div>
+            <div class="attr-mrt"></div>
+          </div>
+
+          <div class="attr-reservation">
+            <div class="attr-subtitle">訂購導覽行程</div>
+            <div class="attr-des">
+              以此景點為中心的一日行程，帶您探索城市角落故事
+            </div>
+
+            <div class="attr-date">
+              <div class="attr-date-title">選擇日期：</div>
+              <input type="date" id="attr-reserve-date" />
+            </div>
+
+            <div class="attr-time">
+              <div class="attr-time-title">選擇時間：</div>
+              <input
+                type="radio"
+                id="morning"
+                name="attr-reserv-time"
+                value="新台幣 2000 元"
+                checked
+              />
+              <label id="morning-label" for="morning">上半天</label>
+
+              <input
+                type="radio"
+                id="afternoon"
+                name="attr-reserv-time"
+                value="新台幣 2500 元"
+              />
+              <label id="afternoon-label" for="afternoon">下半天</label>
+            </div>
+
+            <div class="attr-price">
+              <div class="attr-price-title">導覽費用：</div>
+              <div class="attr-price-price">新台幣 2000 元</div>
+            </div>
+
+            <button type="submit" class="attr-submit">開始預約行程</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <hr />
+      <div class="mt">
+        <div class="des-container">
+          <div class="des-info">
+           
+          </div>
+
+          <div class="des-location">景點地址：</div>
+          <div class="des-location-info"></div>
+          <div class="des-trans">景點地址：</div>
+          <div class="des-trans-info">
+    
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-text">COPYRIGHT © 2024 台北一日遊</div>
+    </div>
+
+  </body>
 </html>
