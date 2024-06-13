@@ -17,7 +17,7 @@
   width: 100%;
   height: 54px;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   background-color: #ffffff;
@@ -394,6 +394,7 @@
 }
 
 .slides {
+  display: none;
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -411,7 +412,7 @@
   cursor: pointer;
   position: absolute;
   opacity: 0.5;
-  z-index: 2;
+  z-index: 1;
   top: 50%;
 }
 
@@ -437,22 +438,43 @@
 /* dots */
 
 .dots-container {
-  position: relative;
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  bottom: 10px;
 }
 
 .dot {
   cursor: pointer;
   display: inline-block;
-  position: absolute;
   width: 12px;
   height: 12px;
   margin: 0 6px;
-  background-color: #000000;
+  background-color: #ffffff;
   border: 1px solid #ffffff;
   border-radius: 50%;
-  z-index: 2;
-  bottom: 10px;
   opacity: 0.5;
+  margin: 0px 6px;
+}
+
+.active,
+.dot:hover {
+  background-color: #000000;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* attraction */
