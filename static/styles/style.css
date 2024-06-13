@@ -790,18 +790,18 @@ hr {
   .attr-submit {
     margin-bottom: 15px;
   }
+}
 
-  .skeleton {
-    animation: loading 1s linear infinite alternate;
+.skeleton {
+  animation: loading 1s linear infinite alternate;
+}
+
+@keyframes loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
   }
 
-  @keyframes loading {
-    0% {
-      background-color: hsl(200, 20%, 70%);
-    }
-
-    100% {
-      background-color: hsl(200, 20%, 95%);
-    }
+  100% {
+    background-color: hsl(200, 20%, 95%);
   }
 }
