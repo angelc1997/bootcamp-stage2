@@ -31,11 +31,18 @@ async function fetchData(attrPageUrl) {
 // Fetch Detail Response
 async function displayDetail(attrPageUrl) {
   try {
+    createSkeletonInfo();
+
     const data = await fetchData(attrPageUrl);
     if (!data.data) {
       window.location.assign(homeUrl);
       return;
     }
+
+    document.querySelectorAll(".slides").forEach((slide) => {
+      slide.remove();
+    });
+
     createDetailElement(data);
     showSlides(index);
     autoPlay();
@@ -70,21 +77,27 @@ function createDetailElement(data) {
   });
 
   const attrTitle = document.querySelector(".attr-title");
+  attrTitle.classList.remove("skeleton", "skeleton-bigTitle");
   attrTitle.textContent = data.data.name;
 
   const attrCategory = document.querySelector(".attr-category");
+  attrCategory.classList.remove("skeleton", "skeleton-shortBody");
   attrCategory.textContent = data.data.category;
 
   const attrMRT = document.querySelector(".attr-mrt");
+  attrMRT.classList.remove("skeleton", "skeleton-shortBody");
   attrMRT.textContent = data.data.mrt;
 
   const desInfo = document.querySelector(".des-info");
+  desInfo.classList.remove("skeleton", "skeleton-longText");
   // desInfo.textContent = data.data.description;
 
   const desLocationInfo = document.querySelector(".des-location-info");
+  desLocationInfo.classList.remove("skeleton", "skeleton-shortText");
   desLocationInfo.textContent = data.data.address;
 
   const desTransInfo = document.querySelector(".des-trans-info");
+  desTransInfo.classList.remove("skeleton", "skeleton-shortText");
   desTransInfo.textContent = data.data.transport;
 
   // slice text and show more button
@@ -153,6 +166,32 @@ function showSlides(n) {
 function autoPlay() {
   plusSlides(1);
   setTimeout(autoPlay, 4000);
+}
+
+// Display skeleton
+function createSkeletonInfo() {
+  const slides = document.querySelector(".slides");
+  slides.classList.add("skeleton");
+
+  plusSlides(1);
+
+  const attrTitle = document.querySelector(".attr-title");
+  attrTitle.classList.add("skeleton", "skeleton-bigTitle");
+
+  const attrCategory = document.querySelector(".attr-category");
+  attrCategory.classList.add("skeleton", "skeleton-shortBody");
+
+  const attrMRT = document.querySelector(".attr-mrt");
+  attrMRT.classList.add("skeleton", "skeleton-shortBody");
+
+  const desInfo = document.querySelector(".des-info");
+  desInfo.classList.add("skeleton", "skeleton-longText");
+
+  const desLocationInfo = document.querySelector(".des-location-info");
+  desLocationInfo.classList.add("skeleton", "skeleton-shortText");
+
+  const desTransInfo = document.querySelector(".des-trans-info");
+  desTransInfo.classList.add("skeleton", "skeleton-shortText");
 }
 
 // Call attraction page
