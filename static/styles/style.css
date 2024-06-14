@@ -730,6 +730,7 @@ hr {
 
   .attr-container {
     display: block;
+    margin-top: 0px;
   }
 
   .slides-container {
