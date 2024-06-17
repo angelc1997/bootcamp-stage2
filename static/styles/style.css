@@ -17,7 +17,9 @@
   width: 100%;
   height: 54px;
   top: 0;
-  z-index: 1;
+  z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+    rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   background-color: #ffffff;
 }
 
@@ -91,7 +93,7 @@
   box-shadow: 0px 0px 20px 0px #aabbcc;
 }
 
-input {
+#search-input {
   width: 370px;
   padding: 15px;
   border: none;
@@ -102,7 +104,7 @@ input {
   color: rgba(117, 117, 117, 1);
 }
 
-button {
+#search-btn {
   width: 60px;
   padding: 10px;
   background-color: rgba(68, 136, 153, 1);
@@ -112,7 +114,7 @@ button {
   border-radius: 0 5px 5px 0;
 }
 
-button img {
+#search-btn img {
   width: 30px;
   height: 30px;
   cursor: pointer;
@@ -184,10 +186,15 @@ button img {
 }
 
 .card-container {
+  cursor: pointer;
   width: 100%;
   height: 240px;
   border-radius: 10px;
   border: 1px solid rgba(232, 232, 232, 1);
+}
+
+.card-container:hover {
+  filter: brightness(70%);
 }
 
 .card-img {
@@ -240,83 +247,10 @@ button img {
 .footer-text {
   font-size: 16px;
   font-weight: 700;
-
-  color: rgba(255, 255, 255, 1);
+  color: #ffffff;
 }
 
-@media screen and (max-width: 1200px) {
-  .container {
-    max-width: 900px;
-  }
-  .card-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .container {
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .card-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .container {
-    max-width: 650px;
-  }
-
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media screen and (max-width: 680px) {
-  .container {
-    max-width: 480px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .container {
-    max-width: 360px;
-  }
-
-  .card-grid {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  .search {
-    width: 320px;
-  }
-
-  .search-bar {
-    width: 320px;
-  }
-}
-
-@media screen and (max-width: 414px) {
-  .container {
-    max-width: 352px;
-  }
-}
-
-@media screen and (max-width: 360px) {
-  .container {
-    max-width: 340px;
-  }
-
-  .searc-bar {
-    width: 260px;
-  }
-
-  .nav .logo a {
-    font-size: 20px;
-  }
-}
+/* Skeleton */
 
 .skeleton {
   animation: loading 1s linear infinite alternate;
@@ -351,4 +285,559 @@ button img {
   width: 90%;
   height: 1.6rem;
   border-radius: 0.5rem;
+}
+
+.skeleton-bigTitle {
+  width: 100%;
+  height: 1.5em;
+  border-radius: 0.25rem;
+}
+
+.skeleton-shortBody {
+  width: 15%;
+  height: 1.3rem;
+  border-radius: 0.25rem;
+}
+
+.skeleton-longText {
+  width: 100%;
+  height: 7rem;
+  border-radius: 0.25rem;
+}
+
+.skeleton-shortText {
+  width: 100%;
+  height: 1.5em;
+  border-radius: 0.25rem;
+}
+
+.skeleton-slides {
+  width: 100%;
+}
+
+.skeleton-img {
+  width: 100%;
+  height: 100%;
+}
+
+/* Form */
+
+.form-background {
+  background-color: rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  visibility: hidden;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 340px;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 60px 0px #aaaaaa;
+  z-index: 3;
+}
+
+.form-border {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(to right, #66aabb, #337788);
+  border-radius: 6px 6px 0 0;
+}
+
+#form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 25px 15px 15px 15px;
+}
+
+.form-title {
+  width: 310px;
+  /* height: 27px; */
+  font-size: 24px;
+  font-weight: 700;
+  color: #666666;
+  /* margin-bottom: 5px; */
+  text-align: center;
+  line-height: 27px;
+}
+
+.form-cancel-icon img {
+  position: absolute;
+  top: 27px;
+  right: 17px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+#form-login input {
+  width: 278px;
+  margin-top: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+#form-login #input-username,
+#input-email,
+#input-password {
+  padding: 13px 15px;
+}
+
+#form-login #input-sumbit {
+  width: 310px;
+  height: 47px;
+  padding: 10px 20px 10px 20px;
+  background: #448899;
+  font-size: 19px;
+  font-weight: 400;
+  text-align: center;
+  color: #ffffff;
+}
+
+.form-SignUpLink {
+  width: 310px;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.form-SignUpLink a {
+  text-decoration: none;
+  color: #666666;
+  height: 22px;
+}
+
+/* attraction-slides */
+
+.attr-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 94px;
+}
+
+.slides-container,
+.attr-content {
+  margin: 0 15px;
+}
+
+.slides-container {
+  width: 540px;
+  height: 406px;
+  position: relative;
+}
+
+.slides {
+  display: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.slides img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  opacity: 0.5;
+  z-index: 1;
+  top: 50%;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.prev img,
+.next img {
+  width: 36px;
+  height: 36px;
+}
+
+.prev:hover,
+.next:hover {
+  opacity: 1;
+}
+
+/* dots */
+
+.dots-container {
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  bottom: 10px;
+}
+
+.dot {
+  cursor: pointer;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 6px;
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  opacity: 0.5;
+  margin: 0px 6px;
+}
+
+.active,
+.dot:hover {
+  background-color: #000000;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* attraction */
+
+.attr-title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 33px;
+  text-align: left;
+  color: #666666;
+}
+
+.attr-content {
+  max-width: 600px;
+}
+
+.attr-sub {
+  display: flex;
+  margin: 15px 0 0 0;
+}
+
+.attr-category,
+.attr-en,
+.attr-mrt {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #666666;
+  margin-right: 5px;
+}
+
+.attr-reservation {
+  background-color: #e8e8e8;
+  margin-top: 20px;
+  width: 560px;
+  border-radius: 5px;
+  padding: 15px 20px 0px 20px;
+}
+
+.attr-subtitle {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  color: #666666;
+}
+
+.attr-des {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #666666;
+  margin-top: 15px;
+}
+
+.attr-date,
+.attr-time,
+.attr-price {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.attr-date-title,
+.attr-time-title,
+.attr-price-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  color: #666666;
+  margin-right: 5px;
+}
+
+.attr-date input {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 25px;
+  border: none;
+  padding: 5px 10px;
+  width: 173px;
+  height: 25px;
+}
+
+::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.attr-time {
+  line-height: 14px;
+}
+
+.attr-time input[type="radio"] {
+  display: none;
+  margin: 10px;
+}
+
+.attr-time label:before {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  content: "";
+  background-color: #ffffff;
+  border-radius: 50%;
+  margin-right: 4px;
+  box-sizing: border-box;
+}
+
+.attr-time input[type="radio"]:checked + label:before {
+  background-color: #448899;
+  border: 2px solid #ffffff;
+}
+
+.attr-time label {
+  margin-right: 13px;
+  display: inline-flex;
+  align-items: center;
+  color: #666666;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.attr-price-price {
+  width: 108px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 14px;
+  color: #666666;
+  margin: 4px 0;
+}
+
+.attr-submit {
+  padding: 10px 20px;
+  background-color: #448899;
+  margin-top: 25px;
+  margin-bottom: 41px;
+  border-radius: 5px;
+  font-size: 19px;
+  font-weight: 400;
+  text-align: center;
+  border: none;
+  color: #ffffff;
+  line-height: 16px;
+}
+
+hr {
+  max-width: 1200px;
+  margin: 40px auto;
+  border: 1px solid #e8e8e8;
+}
+
+.mt {
+  margin: 40px 0;
+}
+
+.des-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.des-info {
+  font-size: 16px;
+  font-weight: 400;
+  color: #666666;
+  margin: 10px 10px 0;
+}
+
+.des-location,
+.des-trans {
+  margin: 20px 10px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #666666;
+}
+
+.des-location-info,
+.des-trans-info {
+  margin: 0 10px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #666666;
+}
+
+/* RWD */
+
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 900px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .attr-container {
+    display: block;
+    margin-top: 0px;
+  }
+
+  .slides-container {
+    max-width: 1000;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .slides {
+    border-radius: 0;
+  }
+
+  .attr-content {
+    margin: 20px auto 0;
+  }
+
+  .des-container {
+    max-width: 600px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 650px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .attr-content {
+    max-width: 480px;
+  }
+
+  .attr-reservation {
+    max-width: 420px;
+  }
+
+  .des-container {
+    max-width: 480px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    max-width: 360px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .search {
+    width: 320px;
+  }
+
+  .search-bar {
+    width: 320px;
+  }
+
+  .attr-content {
+    max-width: 360px;
+  }
+
+  .attr-reservation {
+    max-width: 320px;
+  }
+
+  .des-container {
+    max-width: 360px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .container {
+    max-width: 352px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .container {
+    max-width: 340px;
+  }
+
+  .searc-bar {
+    width: 260px;
+  }
+
+  .nav .logo a {
+    font-size: 20px;
+  }
+
+  .attr-content {
+    max-width: 340px;
+  }
+
+  .attr-reservation {
+    max-width: 300px;
+  }
+
+  .des-container {
+    max-width: 340px;
+  }
+
+  .attr-submit {
+    margin-bottom: 15px;
+  }
 }

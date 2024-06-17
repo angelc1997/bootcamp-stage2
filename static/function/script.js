@@ -148,6 +148,11 @@ function displayPage(attrdata) {
 
     attrdata.forEach((attr) => {
       const card = createCardElement(attr);
+      const cardId = attr.id;
+      card.addEventListener("click", () => {
+        window.location.pathname = `/attraction/${cardId}`;
+      });
+
       cardGrid.appendChild(card);
     });
   } catch (error) {
