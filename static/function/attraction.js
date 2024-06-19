@@ -105,7 +105,7 @@ function createDetailElement(data) {
   const maxLength = 300;
   if (description.length > maxLength) {
     const visibleText = description.slice(0, maxLength);
-    console.log(visibleText);
+    // console.log(visibleText);
     const hiddenText = description.slice(maxLength);
     desInfo.innerHTML = `${visibleText}<span class="hidden-text" style="display: none">${hiddenText}</span><button class="show-more-btn" style="border: none; border-bottom: 1px solid #448899; color: #448899; background-color: transparent; font-size: 16px; font-weight: 400; margin-left: 10px; cursor: pointer; line-height: 14px">瞭解更多</button>`;
 
