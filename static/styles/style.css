@@ -51,6 +51,7 @@
   font-size: 16px;
   font-weight: 500;
   color: rgba(102, 102, 102, 1);
+  cursor: pointer;
 }
 
 /* Banner */
@@ -329,7 +330,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 3;
   visibility: hidden;
 }
 
@@ -391,9 +392,12 @@
   border-radius: 5px;
 }
 
-#form-login #input-username,
+#form-login #input-name,
 #input-email,
-#input-password {
+#input-password,
+#input-signUp-name,
+#input-signUp-email,
+#input-signUp-password {
   padding: 13px 15px;
 }
 
@@ -406,6 +410,7 @@
   font-weight: 400;
   text-align: center;
   color: #ffffff;
+  cursor: pointer;
 }
 
 .form-SignUpLink {
@@ -420,6 +425,7 @@
   text-decoration: none;
   color: #666666;
   height: 22px;
+  cursor: pointer;
 }
 
 /* attraction-slides */
