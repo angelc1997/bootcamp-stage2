@@ -12,6 +12,7 @@
     />
     <link rel="stylesheet" href="/static/styles/style.css" />
     <script src="/static/function/script.js" defer></script>
+    <script src="/static/function/form.js" defer></script>
     <link rel="preload" as="script" href="/static/function/script.js" />
     <link rel="preload" as="style" href="/static/styles/style.css" />
 
@@ -26,8 +27,16 @@
             <a href="http://127.0.0.1:8000">台北一日遊</a>
           </div>
           <div class="menu">
-            <a href="#">預定行程</a>
-            <a href="#" onclick="LoginForm()">登入/註冊</a>
+            <a>預定行程</a>
+            <a
+              id="login-button"
+              style="display: block"
+              onclick="showLoginForm();"
+              >登入/註冊</a
+            >
+            <a id="logout-button" style="display: none" onclick="logout();"
+              >登出系統</a
+            >
           </div>
         </div>
       </div>
@@ -90,45 +99,81 @@
     </div>
 
     <!--Login Form-->
-    <!-- <div class="form-background">
+    <div class="form-background" id="login-form-bg">
       <div class="form-container">
         <div class="form-border"></div>
-        <form id="form-login" action="post">
+        <form id="form-login" action="put" onsubmit="submitLoginForm(event)">
           <div class="form-title">登入會員帳號</div>
-          <div class="form-cancel-icon">
+          <div class="form-cancel-icon" onclick="closeLoginForm()">
             <img src="../static/imgs/cancel.png" alt="icon-cancel" />
           </div>
 
-          <input id="input-email" type="text" placeholder="輸入電子信箱" />
-          <input id="input-password" type="text" placeholder="輸入密碼" />
+          <input
+            id="input-email"
+            type="email"
+            placeholder="輸入電子信箱"
+            required
+          />
+          <input
+            id="input-password"
+            type="text"
+            placeholder="輸入密碼"
+            required
+          />
           <input id="input-sumbit" type="submit" value="登入帳戶" />
-          <div class="form-SignUpLink"><a href="#">還沒有帳戶?點此註冊</a></div>
+          <div
+            id="login-message"
+            class="form-highlight"
+            style="display: none; margin-top: 5px"
+          ></div>
+          <div class="form-SignUpLink">
+            <a onclick="showSignUpForm()">還沒有帳戶?點此註冊</a>
+          </div>
         </form>
       </div>
     </div>
 
     <br />
-    -->
-    <!-- 
-    <div class="form-background">
+
+    <div class="form-background" id="signup-form-bg">
       <div class="form-container">
         <div class="form-border"></div>
-        <form id="form-login" action="post">
+        <form id="form-login" action="" onsubmit="submitSignUpForm(event)">
           <div class="form-title">註冊會員帳號</div>
-          <div class="form-cancel-icon">
+          <div class="form-cancel-icon" onclick="closeSignUpForm()">
             <img src="../static/imgs/cancel.png" alt="icon-cancel" />
           </div>
-          <input id="input-username" type="text" placeholder="輸入姓名" />
-
-          <input id="input-email" type="text" placeholder="輸入電子信箱" />
-          <input id="input-password" type="text" placeholder="輸入密碼" />
+          <input
+            id="input-signUp-name"
+            type="text"
+            placeholder="輸入姓名"
+            required
+          />
+          <input
+            id="input-signUp-email"
+            type="email"
+            placeholder="輸入電子信箱"
+            required
+          />
+          <input
+            id="input-signUp-password"
+            type="text"
+            placeholder="輸入密碼"
+            required
+          />
           <input id="input-sumbit" type="submit" value="註冊新帳戶" />
+          <div
+            id="signup-message"
+            class="form-highlight"
+            style="display: none; margin-top: 5px"
+          ></div>
           <div class="form-SignUpLink">
-            <a href="#">已經有帳戶了？點此登入</a>
+            <div class="form-highlight"></div>
+            <a onclick="showLoginForm()">已經有帳戶了？點此登入</a>
           </div>
         </form>
       </div>
-    </div> -->
+    </div>
 
     <!-- Footer -->
     <div class="footer">
