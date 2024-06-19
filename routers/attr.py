@@ -132,7 +132,7 @@ async def get_attraction(attractionId: int = Path(..., description="景點編號
 
         if info:
             data = list(info) + [picture_data]
-            print(data)
+            # print(data)
       
 
         cursor.close()
