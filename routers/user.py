@@ -1,20 +1,26 @@
 from datetime import datetime, timedelta, timezone
-from typing import List, Union
-from fastapi import APIRouter, Depends,  HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from typing import Annotated, List, Union
+from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi.security import OAuth2PasswordBearer, HTTPBearer, HTTPAuthorizationCredentials, HTTPBasicCredentials
 from pydantic import BaseModel, EmailStr
 from database import dbconfig
 import mysql.connector
 from mysql.connector import pooling
 import jwt
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jwt.exceptions import InvalidTokenError
 from passlib.context import CryptContext
 from config import tokenconfig
 
 
-user = APIRouter()
+SECRET_KEY = tokenconfig["SECRET_KEY"]
+ALGORITHM = tokenconfig["ALGORITHM"]
+ACCESS_TOKEN_EXPIRE_DAYS = tokenconfig["ACCESS_TOKEN_EXPIRE_DAYS"]
 
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="user/auth")
+http_bearer = HTTPBearer()
+
+user = APIRouter()
 
 class SuccessResponse(BaseModel):
     ok: bool = True
@@ -32,47 +38,77 @@ class SignInUser(BaseModel):
     email: EmailStr = "test@gmail.com"
     password: str = "test"
 
-
 class SignInResponse(BaseModel):
     token: str = "a21312xzDSA"
-
 
 class UserAuthInfo(BaseModel):
     id: int = 1
     email: EmailStr ="test@gmail.com"
     password: str = "test"
 
-class SignInAuth(BaseModel):
-    data: List[UserAuthInfo]
+class UserAuthInfoObject(BaseModel):
+    data: UserAuthInfo
 
 
-
-SECRET_KEY = tokenconfig["SECRET_KEY"]
-ALGORITHM = tokenconfig["ALGORITHM"]
-ACCESS_TOKEN_EXPIRE_DAYS = tokenconfig["ACCESS_TOKEN_EXPIRE_DAYS"]
-
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-
+# 驗證密碼
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+# 加密密碼
 def get_password_hash(password):
     return pwd_context.hash(password)
 
+# 取得使用者by email
+def get_user(email: str):
+    try:
+        cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
+        cnx = cnxpool.get_connection()
+        cursor = cnx.cursor()
 
+        sql_string = "SELECT * FROM member WHERE email = %s"
+        cursor.execute(sql_string, (email,))
+        data = cursor.fetchone()
+        if not data:
+            return None
+        
+        cursor.close()
+        cnx.close()
+        return data
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="伺服器內部錯誤")
+    
+# 確認是否有使用者
+def authenticate_user(email: str, password: str):
+    user = get_user(email)
+    if not user:
+        return False
+    if not verify_password(password, user[3]):
+        return False
+    return user
+
+# 產生TOKEN
 def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None):
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.now(timezone.utc) + expires_delta
     else:
-        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
+        expire = datetime.now(timezone.utc) + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+# 使用TOKEN取得使用者
+async def get_current_user(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user = payload.get("sub")
+        if user is None:
+            return None
+        return user
+
+    except InvalidTokenError:
+        raise HTTPException(status_code=401, detail="沒有授權")
 
 
 
@@ -82,19 +118,20 @@ def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None
               500: {"model": ErrorResponse, "description": "伺服器內部錯誤"}})
 
 async def post_user(user: SignUpUser):
-
-    try: 
+    try:
         cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
         cnx = cnxpool.get_connection()
         cursor = cnx.cursor()
 
         sql_string = "SELECT * FROM member WHERE email = %s"
         cursor.execute(sql_string, (user.email,))
+        
         if cursor.fetchone():
             return ErrorResponse(message="此信箱已被註冊")
-        
+
+        # 存入加密的密碼
         hashed_password = pwd_context.hash(user.password)
-        
+
         sql_string = "INSERT INTO member (name, email, password) VALUES (%s, %s, %s)"
         val = (user.name, user.email, hashed_password)
         cursor.execute(sql_string, val)
@@ -106,74 +143,68 @@ async def post_user(user: SignUpUser):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail="伺服器內部錯誤")
-
     
-@user.get("/user/auth", summary="取得當前登入的會員資訊", responses = {
-    200: {"model": UserAuthInfo, "description": "已登入的會員資料，null 表示未登入"},
+@user.get("/user/auth", summary="取得當前登入的會員資訊", responses={
+    200: {"model": UserAuthInfoObject, "description": "已登入的會員資料，null 表示未登入"},
 })
-async def get_user_auth(token: str = Depends(oauth2_scheme)):
+async def get_decode_token(credentials: HTTPBasicCredentials = Depends(http_bearer)):
+
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        email = payload.get("sub")
-        if email is None:
-            raise HTTPException(status_code=401, detail="未登入或token無效")
+        token = credentials.credentials
+        username = await get_current_user(token)
         
+        if username is None:
+            return {"data": None}
+
         cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
         cnx = cnxpool.get_connection()
         cursor = cnx.cursor()
-        
+
         sql_string = "SELECT id, name, email FROM member WHERE email = %s"
-        cursor.execute(sql_string, (email,))
+        cursor.execute(sql_string, (username,))
         data = cursor.fetchone()
         cursor.close()
         cnx.close()
 
         if data:
-            user_info = {"id": data[0], "name": data[1], "email": data[2]}
+            user_info = UserAuthInfo(id=data[0], name=data[1], email=data[2])
             return {"data": user_info}
         else:
             return {"data": None}
-
-    except InvalidTokenError:
-        raise HTTPException(status_code=401, detail="未登入或 token 無效")
+    
     except Exception as e:
         raise HTTPException(status_code=500, detail="伺服器內部錯誤")
+    
 
-
-
-@user.put("/user/auth", summary="登入會員帳戶", responses = {
+@user.put("/user/auth", summary="登入會員帳戶", responses={
     200: {"model": SignInResponse, "description": "登入成功，得有效期為七天的 JWT 加密字串"},
     400: {"model": ErrorResponse, "description": "登入失敗，帳號或密碼錯誤或其他原因"},
     500: {"model": ErrorResponse, "description": "伺服器內部錯誤"}
 })
-async def put_user_auth(user: SignInUser):
-    try: 
+async def get_encode_token(user: SignInUser):
+    try:
+        user = authenticate_user(user.email, user.password)
+    
+        if not user:
+            return ErrorResponse(message="帳號或密碼錯誤")
+        
+        access_token_expires = timedelta(days=7)
+        access_token = create_access_token(
+            data={"sub": user[2]},
+            expires_delta=access_token_expires
+        )
+
+        # 紀錄使用者的TOKEN
         cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
         cnx = cnxpool.get_connection()
         cursor = cnx.cursor()
+        sql_string = "UPDATE member SET token = %s WHERE email = %s"
+        cursor.execute(sql_string, (access_token, user[2]))
+        cnx.commit()
+        cursor.close()
+        cnx.close()
 
-        sql_string = "SELECT * FROM member WHERE email = %s"
-        cursor.execute(sql_string, (user.email,))
-        data = cursor.fetchone()
-
-        if data and verify_password(user.password, data[3]):
-
-            access_token_expires = timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
-            access_token = create_access_token(
-                data={"sub": user.email}, expires_delta=access_token_expires
-            )
-           
-            sql_string = "UPDATE member SET token = %s WHERE email = %s"
-            val = (access_token, user.email)
-            cursor.execute(sql_string, val)
-            cnx.commit()
-            cursor.close()
-            cnx.close()
-
-            return {"token": access_token}
-        
-        else:
-            return ErrorResponse(message="帳號或密碼錯誤")
+        return {"token": access_token}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail="伺服器內部錯誤")
