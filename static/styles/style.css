@@ -358,7 +358,8 @@
   border-radius: 6px 6px 0 0;
 }
 
-#form-login {
+#form-login,
+#form-signup {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -385,7 +386,8 @@
   cursor: pointer;
 }
 
-#form-login input {
+#form-login input,
+#form-signup input {
   width: 278px;
   margin-top: 10px;
   border: 1px solid #cccccc;
@@ -401,7 +403,8 @@
   padding: 13px 15px;
 }
 
-#form-login #input-sumbit {
+#form-login #input-sumbit,
+#form-signup #signup-sumbit {
   width: 310px;
   height: 47px;
   padding: 10px 20px 10px 20px;
