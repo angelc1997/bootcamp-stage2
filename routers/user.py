@@ -61,6 +61,7 @@ def get_password_hash(password):
 # 取得使用者by email
 def get_user(email: str):
     try:
+        
         cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
         cnx = cnxpool.get_connection()
         cursor = cnx.cursor()
@@ -68,6 +69,7 @@ def get_user(email: str):
         sql_string = "SELECT * FROM member WHERE email = %s"
         cursor.execute(sql_string, (email,))
         data = cursor.fetchone()
+        
         if not data:
             return None
         
@@ -101,11 +103,28 @@ def create_access_token(data: dict, expires_delta: Union[timedelta, None] = None
 # 使用TOKEN取得使用者
 async def get_current_user(token: str):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        user = payload.get("sub")
-        if user is None:
+        # 確認TOKEN
+        cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
+        cnx = cnxpool.get_connection()
+        cursor = cnx.cursor()
+
+        sql_string = "SELECT * FROM member WHERE token = %s"
+        cursor.execute(sql_string, (token,))
+        data = cursor.fetchone()
+        
+        # 確認是否有TOKEN
+        if not data:
             return None
-        return user
+        
+        cursor.close()
+        cnx.close()
+        
+        # 解碼TOKEN
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email = payload.get("sub")
+        if email is None:
+            return None
+        return email
 
     except InvalidTokenError:
         raise HTTPException(status_code=401, detail="沒有授權")
@@ -151,17 +170,14 @@ async def get_decode_token(credentials: HTTPBasicCredentials = Depends(http_bear
 
     try:
         token = credentials.credentials
-        username = await get_current_user(token)
+        email = await get_current_user(token)
         
-        if username is None:
-            return {"data": None}
-
         cnxpool = mysql.connector.pooling.MySQLConnectionPool(**dbconfig)
         cnx = cnxpool.get_connection()
         cursor = cnx.cursor()
 
         sql_string = "SELECT id, name, email FROM member WHERE email = %s"
-        cursor.execute(sql_string, (username,))
+        cursor.execute(sql_string, (email,))
         data = cursor.fetchone()
         cursor.close()
         cnx.close()
