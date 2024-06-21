@@ -18,7 +18,7 @@ function closeSignUpForm() {
 
 async function submitLoginForm(event) {
   event.preventDefault();
-  const username = document.getElementById("input-email").value;
+  const email = document.getElementById("input-email").value;
   const password = document.getElementById("input-password").value;
 
   try {
@@ -27,7 +27,7 @@ async function submitLoginForm(event) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ email, password }),
     });
 
     if (!response.ok) {
