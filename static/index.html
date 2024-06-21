@@ -102,7 +102,7 @@
     <div class="form-background" id="login-form-bg">
       <div class="form-container">
         <div class="form-border"></div>
-        <form id="form-login" action="put" onsubmit="submitLoginForm(event)">
+        <form id="form-login" onsubmit="submitLoginForm(event)">
           <div class="form-title">登入會員帳號</div>
           <div class="form-cancel-icon" onclick="closeLoginForm()">
             <img src="../static/imgs/cancel.png" alt="icon-cancel" />
@@ -118,6 +118,7 @@
             id="input-password"
             type="password"
             placeholder="輸入密碼"
+            autocomplete="on"
             required
           />
           <input id="input-sumbit" type="submit" value="登入帳戶" />
@@ -138,7 +139,7 @@
     <div class="form-background" id="signup-form-bg">
       <div class="form-container">
         <div class="form-border"></div>
-        <form id="form-login" action="" onsubmit="submitSignUpForm(event)">
+        <form id="form-signup" action="" onsubmit="submitSignUpForm(event)">
           <div class="form-title">註冊會員帳號</div>
           <div class="form-cancel-icon" onclick="closeSignUpForm()">
             <img src="../static/imgs/cancel.png" alt="icon-cancel" />
@@ -157,11 +158,12 @@
           />
           <input
             id="input-signUp-password"
-            type="text"
+            type="password"
             placeholder="輸入密碼"
+            autocomplete="on"
             required
           />
-          <input id="input-sumbit" type="submit" value="註冊新帳戶" />
+          <input id="signup-sumbit" type="submit" value="註冊新帳戶" />
           <div
             id="signup-message"
             class="form-highlight"
