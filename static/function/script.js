@@ -19,7 +19,7 @@ async function fetchTags() {
       tag.addEventListener("click", () => {
         searchInput.classList.add("searching");
         document.getElementById("search-input").value = tag.textContent;
-        console.log(tag.textContent);
+        // console.log(tag.textContent);
         fetchKeywordFirstPage(tag.textContent);
       });
     });
@@ -243,3 +243,23 @@ const observer = new IntersectionObserver((entries) => {
 // Initialize Data
 fetchTags();
 fetchFirstPage();
+
+// Form Login
+window.addEventListener("load", function () {
+  const token = this.localStorage.getItem("token");
+  if (token) {
+    showLogoutButton();
+  }
+});
+
+function showLogoutButton() {
+  document.getElementById("login-button").style.display = "none";
+  document.getElementById("logout-button").style.display = "block";
+}
+
+function logout() {
+  localStorage.removeItem("token");
+  document.getElementById("login-button").style.display = "block";
+  document.getElementById("logout-button").style.display = "none";
+  window.location.href = "http://127.0.0.1:8000/";
+}

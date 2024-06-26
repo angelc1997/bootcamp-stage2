@@ -51,6 +51,7 @@
   font-size: 16px;
   font-weight: 500;
   color: rgba(102, 102, 102, 1);
+  cursor: pointer;
 }
 
 /* Banner */
@@ -329,7 +330,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 3;
   visibility: hidden;
 }
 
@@ -357,7 +358,8 @@
   border-radius: 6px 6px 0 0;
 }
 
-#form-login {
+#form-login,
+#form-signup {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -384,20 +386,25 @@
   cursor: pointer;
 }
 
-#form-login input {
+#form-login input,
+#form-signup input {
   width: 278px;
   margin-top: 10px;
   border: 1px solid #cccccc;
   border-radius: 5px;
 }
 
-#form-login #input-username,
+#form-login #input-name,
 #input-email,
-#input-password {
+#input-password,
+#input-signUp-name,
+#input-signUp-email,
+#input-signUp-password {
   padding: 13px 15px;
 }
 
-#form-login #input-sumbit {
+#form-login #input-sumbit,
+#form-signup #signup-sumbit {
   width: 310px;
   height: 47px;
   padding: 10px 20px 10px 20px;
@@ -406,6 +413,7 @@
   font-weight: 400;
   text-align: center;
   color: #ffffff;
+  cursor: pointer;
 }
 
 .form-SignUpLink {
@@ -420,6 +428,7 @@
   text-decoration: none;
   color: #666666;
   height: 22px;
+  cursor: pointer;
 }
 
 /* attraction-slides */

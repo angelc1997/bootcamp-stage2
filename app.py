@@ -1,10 +1,8 @@
-
 from fastapi import *
 from fastapi.responses import FileResponse
 from routers import user, attr, mrt, book, order
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-
 
 
 app=FastAPI(
@@ -20,8 +18,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
     allow_origins=["http://100.28.23.193:8000/", "http://127.0.0.1:8000/"],
-    allow_methods=["GET", "POST"],  
-    allow_headers=["Content-Type", "Authorization"]
+    allow_methods=["*"],  
+    allow_headers=["*"]
 )
 
 
@@ -43,7 +41,7 @@ async def thankyou(request: Request):
 
 
 
-app.include_router(user.user,prefix="/api", tags = ["User"], deprecated=True)
+app.include_router(user.user,prefix="/api", tags = ["User"])
 app.include_router(attr.attr,prefix="/api", tags = ["Attraction"])
 app.include_router(mrt.mrt,prefix="/api", tags = ["MRT Station"])
 app.include_router(book.book,prefix="/api", tags = ["Booking"], deprecated=True)
