@@ -34,7 +34,7 @@ window.onload = async function () {
 };
 
 function displayBookingDetail(data1, data2) {
-  console.log(data1, data2);
+  // console.log(data1, data2);
   if (data1.data === null) {
     displayEmptyCart(data2);
   } else {
@@ -62,12 +62,7 @@ function displayCart(data1, data2) {
   const bookingTime = document.getElementById("booking-time");
 
   let time = data1.data.time;
-  let timeText;
-  if (time == "morning") {
-    timeText = "早上9點到下午3點";
-  } else {
-    timeText = "下午3點到晚上9點";
-  }
+  let timeText = time === "morning" ? "早上9點到下午3點" : "下午3點到晚上9點";
   bookingTime.textContent = timeText;
 
   const bookingPrice = document.getElementById("booking-price");
@@ -81,6 +76,12 @@ function displayCart(data1, data2) {
 
   const contactEmail = document.getElementById("contact-email");
   contactEmail.value = data2.data.email;
+
+  const overlay = document.querySelector(".overlay");
+  overlay.style.display = "none";
+
+  const loader = document.querySelector(".loader");
+  loader.style.display = "none";
 }
 
 function displayEmptyCart(data2) {
