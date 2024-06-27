@@ -10,7 +10,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/static/styles/style.css" />
-    
     <script src="/static/function/form.js" defer></script>
     <script src="/static/function/booking.js"></script>
     <script src="/static/function/href.js" defer></script>
@@ -19,12 +18,13 @@
     <title>Booking</title>
   </head>
   <body>
+
     <!-- Navigation -->
     <div class="navbar">
       <div class="container">
         <div class="nav">
           <div class="nav logo">
-            <a href="http://127.0.0.1:8000">台北一日遊</a>
+            <a href="/">台北一日遊</a>
           </div>
           <div class="menu">
             <a id="booking-button" onclick="showBookingCart()">預定行程</a>
@@ -151,5 +151,19 @@
     <div class="footer">
       <div class="footer-text">COPYRIGHT © 2024 台北一日遊</div>
     </div>
+
+    <div class="overlay">
+      <div class="loader"></div>
+    </div>
+    
+
+    <script>
+        addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          window.location.href = "http://127.0.0.1:8000/";
+        }
+      });
+    </script>
   </body>
 </html>
