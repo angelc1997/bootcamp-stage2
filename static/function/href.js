@@ -2,6 +2,12 @@ const baseUrl = "http://127.0.0.1:8000/api";
 
 window.onload = async function () {
   try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "http://127.0.0.1:8000/";
+    }
+    showLogoutButton();
+
     const response1 = await fetch(`${baseUrl}/booking`, {
       method: "GET",
       headers: {
