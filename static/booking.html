@@ -14,7 +14,7 @@
     <script src="/static/function/booking.js" defer></script>
     <script src="/static/function/href.js" defer></script>
     <!-- <link rel="preload" as="script" href="/static/function/script.js" /> -->
-    <link rel="preload" as="style" href="/static/styles/style.css" />
+    <!-- <link rel="preload" as="style" href="/static/styles/style.css" /> -->
     <title>Booking</title>
   </head>
   <body>
@@ -162,6 +162,8 @@
         const token = localStorage.getItem("token");
         if (!token) {
           window.location.href = "http://127.0.0.1:8000/";
+        } else {
+          showLogoutButton();
         }
       });
     </script>
