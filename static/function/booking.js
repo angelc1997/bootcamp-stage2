@@ -1,5 +1,6 @@
 async function postNewBooking() {
   try {
+    // Get data
     const date = document.getElementById("attr-reserve-date").value;
     if (!date) {
       alert("請填寫日期");
@@ -9,15 +10,17 @@ async function postNewBooking() {
       "input[name='attr-reserv-time']:checked"
     ).id;
 
-    let price;
-    if (time === "morning") {
-      price = 2000;
-    } else {
-      price = 2500;
-    }
+    // Set price
+    let price = time === "morning" ? 2000 : 2500;
 
     const url = window.location.href;
     const attractionId = url.split("/").pop();
+
+    // 確認登入
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "http://127.0.0.1:8000/";
+    }
 
     const response = await fetch(`${baseUrl}/booking`, {
       method: "POST",
@@ -29,7 +32,6 @@ async function postNewBooking() {
     });
 
     if (!response.ok) {
-      alert("請登入後進行預約");
       throw new Error(`Error: ${response.status}`);
     }
     window.location.href = "/booking";
