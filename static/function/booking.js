@@ -38,7 +38,7 @@ async function postNewBooking() {
   }
 }
 
-async function showBookingCart() {
+function showBookingCart() {
   const token = localStorage.getItem("token");
   if (!token) {
     showLoginForm();
