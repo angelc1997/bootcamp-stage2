@@ -304,7 +304,7 @@ async def get_booking(credentials: HTTPBasicCredentials = Depends(http_bearer)):
        
 
     except Exception as e:
-        print(e)
+        # print(e)
         raise HTTPException(status_code=500, detail="伺服器內部錯誤")
 
 @book.post("/booking", summary= "建立新的預定行程", responses={
@@ -358,7 +358,7 @@ async def post_booking(form: BookingPost, credentials: HTTPBasicCredentials = De
         
        
     except Exception as e:
-        print(e)
+        # print(e)
         raise HTTPException(status_code=500, detail="伺服器內部錯誤")
 
     
@@ -393,5 +393,5 @@ async def delete_booking(credentials: HTTPBasicCredentials = Depends(http_bearer
         return {"ok": True}
     
     except Exception as e:
-        print(e)
+        # print(e)
         raise HTTPException(status_code=500, detail="伺服器內部錯誤")
