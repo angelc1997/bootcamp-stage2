@@ -16,12 +16,6 @@ async function postNewBooking() {
     const url = window.location.href;
     const attractionId = url.split("/").pop();
 
-    // 確認登入
-    const token = localStorage.getItem("token");
-    if (!token) {
-      window.location.href = "http://127.0.0.1:8000/";
-    }
-
     const response = await fetch(`${baseUrl}/booking`, {
       method: "POST",
       headers: {
