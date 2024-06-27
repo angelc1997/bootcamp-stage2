@@ -109,6 +109,12 @@ function displayEmptyCart(data2) {
   const footerStyle = document.querySelector(".footer");
   // console.log(footerStyle);
   footerStyle.style.height = "100vh";
+
+  const overlay = document.querySelector(".overlay");
+  overlay.style.display = "none";
+
+  const loader = document.querySelector(".loader");
+  loader.style.display = "none";
 }
 
 async function deleteBooking() {
