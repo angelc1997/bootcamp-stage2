@@ -15,7 +15,10 @@ async function postNewBooking() {
 
     const url = window.location.href;
     const attractionId = url.split("/").pop();
-
+    if (!token) {
+      showLoginForm();
+      return;
+    }
     const response = await fetch(`${baseUrl}/booking`, {
       method: "POST",
       headers: {
