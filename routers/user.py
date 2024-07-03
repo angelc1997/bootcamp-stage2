@@ -395,3 +395,5 @@ async def delete_booking(credentials: HTTPBasicCredentials = Depends(http_bearer
     except Exception as e:
         # print(e)
         raise HTTPException(status_code=500, detail="伺服器內部錯誤")
+
+
