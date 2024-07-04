@@ -6,27 +6,47 @@ window.onload = async function () {
     showLogoutButton();
   }
 
-  const newUrl = new URLSearchParams(window.location.search);
-  const orderNumber = newUrl.get("order");
-  console.log(orderNumber);
+  try {
+    const newUrl = new URLSearchParams(window.location.search);
+    const orderNumber = newUrl.get("order");
+    console.log(orderNumber);
 
-  const orderAPI = `http://127.0.0.1:8000/api/order/${orderNumber}`;
+    const orderAPI = `http://127.0.0.1:8000/api/order/${orderNumber}`;
 
-  const response = await fetch(orderAPI, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  if (!response.ok) {
-    throw new Error(`Error: ${response.status}`);
+    const response = await fetch(orderAPI, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+    createPaymentList(data);
+
+    const deleteDatabase = await fetch(`http://127.0.0.1:8000/api/booking`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!deleteDatabase.ok) {
+      const errorMessage = await deleteDatabase.text();
+      throw new Error(`Error: ${deleteDatabase.status} - ${errorMessage}`);
+    }
+
+    const deleteDatabaseData = await deleteDatabase.json();
+    console.log("刪除資料庫：", deleteDatabaseData);
+  } catch (error) {
+    console.error("Error:", error);
   }
-
-  const data = await response.json();
-  console.log(data);
-
-  createPaymentList(data);
 };
 
 function createPaymentList(data) {
