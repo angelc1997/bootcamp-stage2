@@ -33,6 +33,8 @@ window.onload = async function () {
     }
     const data2 = await response2.json();
 
+    localStorage.setItem("bookingData", JSON.stringify(data1));
+
     displayBookingDetail(data1, data2);
   } catch (error) {
     console.error("Error:", error);
@@ -73,6 +75,9 @@ function displayCart(data1, data2) {
 
   const bookingPrice = document.getElementById("booking-price");
   bookingPrice.textContent = `新台幣${data1.data.price}元`;
+
+  const bookingSum = document.getElementById("booking-sum");
+  bookingSum.textContent = data1.data.price;
 
   const bookingAddress = document.getElementById("booking-address");
   bookingAddress.textContent = data1.data.attraction.address;
