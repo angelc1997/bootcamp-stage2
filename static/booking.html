@@ -14,11 +14,10 @@
     <script src="/static/function/booking.js" defer></script>
     <script src="/static/function/href.js" defer></script>
     <!-- <link rel="preload" as="script" href="/static/function/script.js" /> -->
-    <!-- <link rel="preload" as="style" href="/static/styles/style.css" /> -->
+    <link rel="preload" as="style" href="/static/styles/style.css" />
     <title>Booking</title>
   </head>
   <body>
-
     <!-- Navigation -->
     <div class="navbar">
       <div class="container">
@@ -45,14 +44,14 @@
     <!-- Content -->
 
     <div class="booking-title">
-      <div class="booking-title-msg">您好，<span id="booking-username"></span>，待預訂的行程如下：</div>
+      <div class="booking-title-msg">
+        您好，<span id="booking-username"></span>，待預訂的行程如下：
+      </div>
       <div class="booking-empty">目前沒有任何待預訂的行程</div>
     </div>
-    
-  
+
     <div class="booking-wrap">
-      <div class="booking-image">
-      </div>
+      <div class="booking-image"></div>
 
       <div class="booking-info">
         <div class="booking-subtitle">
@@ -62,19 +61,13 @@
           日期：<span class="booking-text" id="booking-date"></span>
         </div>
         <div class="booking">
-          時間：<span class="booking-text" id="booking-time"
-            ></span
-          >
+          時間：<span class="booking-text" id="booking-time"></span>
         </div>
         <div class="booking">
-          費用：<span class="booking-text" id="booking-price"
-            ></span
-          >
+          費用：<span class="booking-text" id="booking-price"></span>
         </div>
         <div class="booking">
-          地點：<span class="booking-text" id="booking-address"
-            ></span
-          >
+          地點：<span class="booking-text" id="booking-address"></span>
         </div>
         <div class="booking-icon" onclick="deleteBooking()">
           <img src="../static/imgs/icon-delete.png" alt="delete" />
@@ -114,36 +107,31 @@
       <div class="booking-payment-form">
         <div class="booking-payment-title">信用卡付款資訊</div>
 
-        <form>
-        <div class="input-group">
-          <label for="credit-number">卡片號碼：</label>
-          <input
-            type="password"
-            id="credit-number"
-            placeholder="**** **** **** ****"
-            autocomplete="on"
-          />
-        </div>
-        <div class="input-group">
-          <label for="credit-date">過期時間：</label>
-          <input type="text" id="credit-date" placeholder="MM/YY" />
-        </div>
+        <div class="tpfield-container">
+          <div class="input-group">
+            <label for="card-number">卡片號碼：</label>
+            <div class="tpfield" id="card-number"></div>
+          </div>
+          <div class="input-group">
+            <label for="card-expiration-date">過期時間：</label>
+            <div class="tpfield" id="card-expiration-date"></div>
+          </div>
 
-        <div class="input-group">
-          <label for="credit-cvc">驗證密碼：</label>
-          <input type="text" id="credit-cvc" placeholder="CVV" />
+          <div class="input-group">
+            <label for="card-ccv">驗證密碼：</label>
+            <div class="tpfield" id="card-ccv"></div>
+          </div>
         </div>
       </div>
     </div>
-  </form>
 
     <hr />
     <div class="booking-container">
       <div class="booking-submit">
         <div class="booking-sum">
-          總價：<span id="booking-sum">新台幣2000元</span>
+          總價：新台幣<span id="booking-sum"></span>元
         </div>
-        <button>確認訂購並付款</button>
+        <button id="submit-button" disabled>確認訂購並付款</button>
       </div>
     </div>
 
@@ -155,10 +143,12 @@
     <div class="overlay">
       <div class="loader"></div>
     </div>
-    
+
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.18.0"></script>
+    <script src="/static/function/tappay.js"></script>
 
     <script>
-        addEventListener("DOMContentLoaded", () => {
+      addEventListener("DOMContentLoaded", () => {
         const token = localStorage.getItem("token");
         if (!token) {
           window.location.href = "http://127.0.0.1:8000/";

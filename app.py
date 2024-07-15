@@ -43,7 +43,7 @@ app.include_router(user.user,prefix="/api", tags = ["User"])
 app.include_router(attr.attr,prefix="/api", tags = ["Attraction"])
 app.include_router(mrt.mrt,prefix="/api", tags = ["MRT Station"])
 app.include_router(user.book,prefix="/api", tags = ["Booking"])
-app.include_router(order.order,prefix="/api", tags = ["Order"], deprecated=True)
+app.include_router(order.order,prefix="/api", tags = ["Order"])
 
 
 

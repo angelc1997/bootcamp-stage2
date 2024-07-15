@@ -797,6 +797,8 @@ hr {
 
 .input-group {
   margin-top: 15px;
+  display: flex;
+  align-items: center;
 }
 
 .booking-contact-msg {
@@ -850,6 +852,62 @@ hr {
   text-align: center;
   line-height: 16px;
   cursor: pointer;
+}
+
+/* TapPay */
+.tpfield {
+  width: 200px;
+  height: 16px;
+  border-radius: 5px;
+  border: 1px solid #e8e8e8;
+  padding: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000000;
+}
+.tappay-field-focus {
+  border: 2px solid black;
+}
+
+/* Thank you */
+.pay-container {
+  max-width: 600px;
+  margin: 250px auto;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+  padding: 50px;
+}
+
+.pay-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #337788;
+  margin-bottom: 20px;
+}
+
+.pay-subtitle,
+.pay-subtitle span {
+  font-size: 20px;
+  text-align: center;
+}
+
+.pay {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pay div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #666666;
+}
+
+.pay div span {
+  color: black;
 }
 
 /* RWD */
@@ -1061,6 +1119,7 @@ hr {
 }
 
 .overlay {
+  display: flex;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -1068,13 +1127,11 @@ hr {
   right: 0;
   background: rgba(0, 0, 0, 0.7);
   z-index: 3;
+  align-items: center;
+  justify-content: center;
 }
 
 .loader {
-  position: absolute;
-  top: 20%;
-  left: 43%;
-  transform: translateX(-50%);
   border: 16px solid #f3f3f3;
   border-top: 16px solid #3498db;
   border-radius: 50%;
@@ -1090,4 +1147,9 @@ hr {
   100% {
     transform: rotate(360deg);
   }
+}
+
+svg {
+  display: flex;
+  margin: 20px auto;
 }
