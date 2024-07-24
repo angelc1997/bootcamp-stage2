@@ -1,0 +1,69 @@
+/* Typography */
+$ff-base: "Noto Sans TC", sans-serif;
+
+/* Font sizes */
+$fs-14: 14px;
+$fs-16: 16px;
+$fs-19: 19px;
+$fs-20: 20px;
+$fs-24: 24px;
+$fs-28: 28px;
+$fs-30: 30px;
+$fs-40: 40px;
+
+/* Font weights */
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-bold: 700;
+
+/* Line heights */
+$lh-13: 13.3px;
+$lh-14: 14px;
+$lh-16: 16px;
+$lh-24: 24px;
+$lh-28: 28px;
+$lh-40: 40px;
+
+/* Colors */
+$clr-black: #000000;
+$clr-white: #ffffff;
+$clr-bluegray: #aabbcc;
+$clr-gray-10: #f8f8f8;
+$clr-gray-20: #e8e8e8;
+$clr-gray-50: #757575;
+$clr-gray-70: #666666;
+$clr-cyan-20: #aaddee;
+$clr-cyan-50: #66aabb;
+$clr-cyan-70: #448899;
+$clr-gradient-darkCyan: linear-gradient(#337788, #66aabb);
+$clr-gradient-lightCyan: linear-gradient(#aaddee, #66aabb);
+$clr-gradient-RightCyan: linear-gradient(to right, #66aabb, #337788);
+$clr-shape-red: #f05053;
+
+/* width */
+$base-width: 1200px;
+
+/* icon */
+$icon-width: 30px;
+$icon-height: 30px;
+
+// margin
+$m-10: 10px;
+$m-20: 20px;
+$m-40: 40px;
+$m-60: 60px;
+$m-100: 100px;
+
+// padding
+$p-4: 4px;
+$p-8: 8px;
+$p-12: 12px;
+$p-16: 16px;
+$p-20: 20px;
+$p-40: 40px;
+
+/* Other */
+$border-radius: 5px;
+$bdrs-10: 10px;
+$box-shadow-navbar: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+  rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;

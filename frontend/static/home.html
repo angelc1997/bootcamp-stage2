@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ch">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../scripts/home.js" defer></script>
+    <script src="../scripts/form.js" defer></script>
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <title>遊玩北台灣</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar-fixed">
+      <div class="navbar-container">
+        <div class="navbar">
+          <nav>
+            <a href="/" id="navbar-brand">
+              <span class="circle1"></span>
+              <span class="circle2"></span>
+              台北一日遊
+            </a>
+          </nav>
+          <div class="navbar-items">
+            <ul class="flex">
+              <li><a href="/spot">逛逛景點</a></li>
+              <li>
+                <a
+                  href="/booking"
+                  id="navbar-booking"
+                  onclick="showBookingCart()"
+                  >預定行程</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/thankyou"
+                  id="navbar-favourite"
+                  onclick="showOrderList()"
+                  >已訂購行程</a
+                >
+              </li>
+              <li>
+                <a id="navbar-login" onclick="showLoginForm()">註冊/登入</a>
+                <a id="navbar-logout" style="display: none" onclick="logout()"
+                  >登出系統</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Banner -->
+    <!-- <div class="section-slidesshow"></div> -->
+
+    <!-- Banner -->
+    <div class="home-banner"></div>
+
+    <div class="wrapper">
+      <!-- Section-1 -->
+      <div class="wrapper">
+        <div class="container">
+          <div class="home-title">
+            使用一日遊輕鬆<span class="typing-text"></span
+            ><span class="typing-cursor">&nbsp;</span>
+          </div>
+
+          <div class="home-content">
+            <p>
+              輕鬆規劃您的北台灣之旅!
+              搜尋捷運沿線熱門景點、預訂專業導覽、快速支付預定行程。<br />從台北到新北，讓我們帶您探索捷運可及的精彩風景
+            </p>
+            <button class="home-btn" href="/spot">前往搜尋景點</button>
+          </div>
+        </div>
+
+        <!-- Section-2 -->
+        <div class="container">
+          <div class="home-features">
+            <div
+              class="content-card"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+            >
+              <img
+                src="../assets/images/content-card-subway.jpg"
+                alt="捷運玩樂通"
+              />
+              <div class="content-overlay">
+                <i class="fa-solid fa-train-subway"></i>
+                <h3>捷運玩樂通</h3>
+                <p>輕鬆搜尋北台灣捷運沿線景點,暢遊城市不費力</p>
+              </div>
+            </div>
+
+            <div
+              class="content-card"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+            >
+              <img
+                src="../assets/images/content-card-tourguide.jpg"
+                alt="專業導覽預約"
+              />
+              <div class="content-overlay">
+                <i class="fa-regular fa-calendar-days"></i>
+                <h3>專業導覽預約</h3>
+                <p>一鍵預訂在地導覽,深入體驗北台灣文化與風景</p>
+              </div>
+            </div>
+
+            <div
+              class="content-card"
+              data-aos="fade-up"
+              data-aos-duration="2000"
+            >
+              <img src="../assets/images/content-card-pay.jpg" alt="安心預付" />
+              <div class="content-overlay">
+                <i class="fa-solid fa-sack-dollar"></i>
+                <h3>線上安心付</h3>
+                <p>安全便捷的線上支付,輕鬆搞定旅遊花費</p>
+              </div>
+            </div>
+
+            <div
+              class="content-card"
+              data-aos="fade-up"
+              data-aos-duration="2000"
+            >
+              <img
+                src="../assets/images/content-card-travel.jpg"
+                alt="我的旅遊收藏"
+              />
+              <div class="content-overlay">
+                <i class="fa-solid fa-clipboard-check"></i>
+                <h3>會員紀錄管理</h3>
+                <p>輕鬆管理旅遊行程，隨時掌握行程紀錄</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section-3 -->
+        <div class="section">
+          <div class="container">
+            <div class="home-tabtitle">
+              <h1>如何使用<span>一日遊?</span></h1>
+              <p>
+                選擇<span>目的地</span> → 挑選<span>行程</span> → 預訂<span
+                  >導覽</span
+                >
+                → 線上<span>支付</span> → 開始<span>旅程</span>
+                <br />
+                五個簡單步驟，讓您輕鬆探索體驗北台灣。
+              </p>
+            </div>
+
+            <div class="home-tablist">
+              <button class="tab-btn" onclick="showTab(0)">選擇景點</button>
+              <button class="tab-btn" onclick="showTab(1)">挑選行程</button>
+              <button class="tab-btn" onclick="showTab(2)">預定導覽</button>
+              <button class="tab-btn" onclick="showTab(3)">線上支付</button>
+              <button class="tab-btn" onclick="showTab(4)">我的行程</button>
+            </div>
+
+            <div class="home-tabcontent">
+              <span class="circle3"></span><span class="circle4"></span>
+
+              <div class="tabcontent">
+                <div class="tabdescription">
+                  <h1 data-aos>探索北台灣</h1>
+                  <p>瀏覽熱門捷運站周邊景點</p>
+                </div>
+                <img src="../assets/svg/tab0.svg" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="section-banner">
+          <div class="container">
+            <div class="banner-title">
+              <h1>新戶首次預約享優惠</h1>
+              <p>
+                成為會員，享受專屬折扣和個人化旅遊推薦！同時關注我們的最新活動，獲得更多優惠!
+              </p>
+            </div>
+          </div>
+          <div class="section-overlay"></div>
+        </div>
+
+        <!-- Section-4 -->
+        <div class="container">
+          <div class="function-title">
+            <h1>一日遊持續推出</h1>
+            <p>一日遊是我們的最佳搭配，讓您輕鬆規劃一次行程，一次搭配。</p>
+          </div>
+          <div class="home-function">
+            <div class="function-card" data-aos="zoom-in">
+              <div class="function-tag">全新推出</div>
+              <i class="fa-solid fa-calendar-check"></i>
+              <ul>
+                <li>景點搜尋</li>
+                <li>旅程預約</li>
+                <li>線上支付</li>
+              </ul>
+            </div>
+
+            <div class="function-card" data-aos="zoom-in" data-aos-delay="200">
+              <div class="function-tag">即將推出</div>
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+              <ul>
+                <li>匯率換算器</li>
+                <li>天氣預報小工具</li>
+                <li>公共交通即時資訊</li>
+              </ul>
+            </div>
+            <div class="function-card" data-aos="zoom-in" data-aos-delay="400">
+              <div class="function-tag">未來展望</div>
+              <i class="fa-solid fa-robot"></i>
+              <ul>
+                <li>AI個人化行程推薦</li>
+                <li>多語言語音導覽</li>
+                <li>旅遊保險整合</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Login Form-->
+    <div class="form-background" id="login-form-bg">
+      <div class="form-container">
+        <div class="form-border"></div>
+        <form id="form-login" onsubmit="submitLoginForm(event)">
+          <div class="form-title">登入會員帳號</div>
+          <div class="form-cancel-icon" onclick="closeLoginForm()">
+            <img src="../assets/icons/icon-cancel.png" alt="icon-cancel" />
+          </div>
+
+          <input
+            id="input-email"
+            type="email"
+            placeholder="輸入電子信箱"
+            required
+          />
+          <input
+            id="input-password"
+            type="password"
+            placeholder="輸入密碼"
+            autocomplete="on"
+            required
+          />
+          <input id="input-sumbit" type="submit" value="登入帳戶" />
+          <div
+            id="login-message"
+            class="form-highlight"
+            style="display: none; margin-top: 5px"
+          ></div>
+          <div class="form-SignUpLink">
+            <a onclick="showSignUpForm()">還沒有帳戶?點此註冊</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="form-background" id="signup-form-bg">
+      <div class="form-container">
+        <div class="form-border"></div>
+        <form id="form-signup" action="" onsubmit="submitSignUpForm(event)">
+          <div class="form-title">註冊會員帳號</div>
+          <div class="form-cancel-icon" onclick="closeSignUpForm()">
+            <img src="../assets/icons/icon-cancel.png" alt="icon-cancel" />
+          </div>
+          <input
+            id="input-signUp-name"
+            type="text"
+            placeholder="輸入姓名"
+            required
+          />
+          <input
+            id="input-signUp-email"
+            type="email"
+            placeholder="輸入電子信箱"
+            required
+          />
+          <input
+            id="input-signUp-password"
+            type="password"
+            placeholder="輸入密碼"
+            autocomplete="on"
+            required
+          />
+          <input id="signup-sumbit" type="submit" value="註冊新帳戶" />
+          <div
+            id="signup-message"
+            class="form-highlight"
+            style="display: none; margin-top: 5px"
+          ></div>
+          <div class="form-SignUpLink">
+            <div class="form-highlight"></div>
+            <a onclick="showLoginForm()">已經有帳戶了？點此登入</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-text">COPYRIGHT © 2024 台北一日遊</div>
+    </div>
+
+    <!--Login Form-->
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          showLogoutButton();
+        }
+      });
+    </script>
+  </body>
+</html>

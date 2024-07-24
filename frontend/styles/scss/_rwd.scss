@@ -1,0 +1,296 @@
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 900px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .attr-container {
+    display: block;
+    margin-top: 0px;
+  }
+
+  .slides-container {
+    max-width: 1000;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .slides {
+    border-radius: 0;
+  }
+
+  .attr-content {
+    margin: 20px auto 0;
+  }
+
+  .des-container {
+    max-width: 600px;
+  }
+
+  .booking-title {
+    width: 600px;
+  }
+
+  .booking-container,
+  .booking-wrap {
+    max-width: 600px;
+  }
+
+  .booking-wrap {
+    display: block;
+  }
+
+  .booking-info {
+    margin-top: 30px;
+  }
+
+  .booking-image img {
+    width: 600px;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .booking-icon img {
+    position: static;
+    float: right;
+  }
+
+  .home-tabcontent .tabcontent {
+    display: block;
+    max-width: 650px;
+    text-align: center;
+    margin-top: 40px;
+
+    img {
+      width: 400px;
+      height: 400px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 650px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .attr-content {
+    max-width: 480px;
+  }
+
+  .attr-reservation {
+    max-width: 420px;
+  }
+
+  .des-container {
+    max-width: 480px;
+  }
+
+  .booking-title {
+    width: 480px;
+  }
+
+  .booking-container,
+  .booking-wrap {
+    max-width: 480px;
+  }
+
+  .booking-image img {
+    width: 480px;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #navbar-brand {
+    font-size: $fs-19;
+  }
+
+  .navbar-items {
+    ul {
+      li {
+        font-size: $fs-14;
+      }
+    }
+  }
+
+  .home-function {
+    display: block;
+    max-width: 360px;
+    height: 1000px;
+    margin: 20px auto;
+
+    .function-card {
+      width: 100%;
+      margin: 40px 0;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    max-width: 360px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .search {
+    width: 320px;
+  }
+
+  .search-bar {
+    width: 320px;
+  }
+
+  .attr-content {
+    max-width: 360px;
+  }
+
+  .attr-reservation {
+    max-width: 320px;
+  }
+
+  .des-container {
+    max-width: 360px;
+  }
+
+  .booking-title {
+    width: 360px;
+  }
+
+  .booking-container,
+  .booking-wrap {
+    max-width: 360px;
+  }
+
+  .booking-image img {
+    width: 360px;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .home-tabcontent {
+    height: 400px;
+  }
+
+  .home-tabcontent .tabcontent {
+    max-width: 360px;
+    margin-top: 40px;
+
+    img {
+      width: 250px;
+      height: 250px;
+    }
+  }
+
+  .home-tablist {
+    display: block;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .container {
+    max-width: 352px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .container {
+    max-width: 340px;
+  }
+
+  .searc-bar {
+    width: 260px;
+  }
+
+  .nav .logo a {
+    font-size: 20px;
+  }
+
+  .attr-content {
+    max-width: 340px;
+  }
+
+  .attr-reservation {
+    max-width: 300px;
+  }
+
+  .des-container {
+    max-width: 340px;
+  }
+
+  .attr-submit {
+    margin-bottom: 15px;
+  }
+
+  .booking-title {
+    width: 340px;
+  }
+
+  .booking-container,
+  .booking-wrap {
+    max-width: 340px;
+  }
+
+  .booking-image img {
+    width: 340px;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.overlay {
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 3;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: load 1s linear infinite;
+}
+
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+svg {
+  display: flex;
+  margin: 20px auto;
+}

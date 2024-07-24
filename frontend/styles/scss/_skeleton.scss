@@ -1,0 +1,67 @@
+.skeleton {
+  animation: loading 1s linear infinite alternate;
+}
+
+@keyframes loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+.skeleton-title {
+  width: 50%;
+  height: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.25rem;
+  background-color: hsl(200, 20%, 100%);
+}
+
+.skeleton-body {
+  width: 30%;
+  height: 1.3rem;
+  border-radius: 0.25rem;
+}
+
+.skeleton-list {
+  width: 90%;
+  height: 1.6rem;
+  border-radius: 0.5rem;
+}
+
+.skeleton-bigTitle {
+  width: 100%;
+  height: 1.5em;
+  border-radius: 0.25rem;
+}
+
+.skeleton-shortBody {
+  width: 15%;
+  height: 1.3rem;
+  border-radius: 0.25rem;
+}
+
+.skeleton-longText {
+  width: 100%;
+  height: 7rem;
+  border-radius: 0.25rem;
+}
+
+.skeleton-shortText {
+  width: 100%;
+  height: 1.5em;
+  border-radius: 0.25rem;
+}
+
+.skeleton-slides {
+  width: 100%;
+}
+
+.skeleton-img {
+  width: 100%;
+  height: 100%;
+}

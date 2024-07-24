@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="preload" as="style" href="../styles/style.css" />
+    <script src="../scripts/form.js" defer></script>
+    <script src="../scripts/booking.js" defer></script>
+    <script src="../scripts/thankyou.js" defer></script>
+
+    <title>Thank You</title>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar-fixed">
+      <div class="navbar-container">
+        <div class="navbar">
+          <nav>
+            <a href="/" id="navbar-brand">
+              <span class="circle1"></span>
+              <span class="circle2"></span>
+              台北一日遊
+            </a>
+          </nav>
+          <div class="navbar-items">
+            <ul class="flex">
+              <li><a href="/spot">逛逛景點</a></li>
+              <li>
+                <a
+                  href="/booking"
+                  id="navbar-booking"
+                  onclick="showBookingCart()"
+                  >預定行程</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/thankyou"
+                  id="navbar-favourite"
+                  onclick="showOrderList()"
+                  >已訂購行程</a
+                >
+              </li>
+              <li>
+                <a id="navbar-login" onclick="showLoginForm()">註冊/登入</a>
+                <a id="navbar-logout" style="display: none" onclick="logout()"
+                  >登出系統</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content -->
+
+    <div class="pay-container">
+      <svg
+        width="40px"
+        height="40px"
+        viewBox="0 0 64 64"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        aria-hidden="true"
+        role="img"
+        class="iconify iconify--emojione"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <circle cx="32" cy="32" r="30" fill="#4bd37b"></circle>
+        <path
+          fill="#ffffff"
+          d="M46 14L25 35.6l-7-7.2l-7 7.2L25 50l28-28.8z"
+        ></path>
+      </svg>
+      <div class="pay-title">行程預定成功</div>
+      <div class="pay-subtitle">訂單編號：<span id="pay-id"></span></div>
+      <hr />
+      <div class="pay">
+        <div>訂購人：<span id="pay-name"></span></div>
+        <div>電話：<span id="pay-phone"></span></div>
+        <div>信箱：<span id="pay-email"></span></div>
+
+        <div>預定日期：<span id="pay-date"></span></div>
+        <div>預定時間：<span id="pay-time"></span></div>
+        <div>預定景點：<span id="pay-attr"></span></div>
+      </div>
+      <hr />
+      <div class="pay-subtitle">總費用：<span id="pay-price"></span></div>
+    </div>
+
+    <div class="overlay">
+      <div class="loader"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-text">COPYRIGHT © 2024 台北一日遊</div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          showLogoutButton();
+        } else {
+          window.location.href = "http://127.0.0.1:8000/";
+        }
+      });
+    </script>
+  </body>
+</html>

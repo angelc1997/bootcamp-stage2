@@ -1,0 +1,271 @@
+.attr-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 94px;
+}
+
+.slides-container,
+.attr-content {
+  margin: 0 15px;
+}
+
+.slides-container {
+  width: 540px;
+  height: 406px;
+  position: relative;
+}
+
+.slides {
+  display: none;
+  width: 100%;
+  height: 100%;
+  border-radius: $bdrs-10;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  opacity: 0.5;
+  z-index: 1;
+  top: 50%;
+  img {
+    width: 36px;
+    height: 36px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.dots-container {
+  text-align: center;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  bottom: 10px;
+}
+
+.dot {
+  cursor: pointer;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin: 0 6px;
+  background-color: $clr-white;
+  border: 1px solid $clr-white;
+  border-radius: 50%;
+  opacity: 0.5;
+  margin: 0px 6px;
+}
+
+.active,
+.dot:hover {
+  background-color: $clr-black;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.attr-title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 33px;
+  text-align: left;
+  color: $clr-gray-70;
+}
+
+.attr-content {
+  max-width: 600px;
+}
+
+.attr-sub {
+  display: flex;
+  margin: 15px 0 0 0;
+}
+
+.attr-category,
+.attr-en,
+.attr-mrt {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+  color: $clr-gray-70;
+  margin-right: 5px;
+}
+
+.attr-reservation {
+  background-color: $clr-gray-20;
+  margin-top: 20px;
+  width: 560px;
+  border-radius: $border-radius;
+  padding: 15px 20px 0px 20px;
+}
+
+.attr-subtitle {
+  font-size: $fs-16;
+  font-weight: $fw-bold;
+  line-height: 22px;
+  color: $clr-gray-70;
+}
+
+.attr-des {
+  font-size: $fs-16;
+  font-weight: $fw-regular;
+  line-height: 24px;
+  color: $clr-gray-70;
+  margin-top: 15px;
+}
+
+.attr-date,
+.attr-time,
+.attr-price {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.attr-date-title,
+.attr-time-title,
+.attr-price-title {
+  font-size: $fs-16;
+  font-weight: $fw-bold;
+  line-height: 22px;
+  color: $clr-gray-70;
+  margin-right: 5px;
+}
+
+.attr-date input {
+  font-size: $fs-16;
+  font-weight: $fw-regular;
+  line-height: 25px;
+  border: none;
+  padding: 5px 10px;
+  width: 173px;
+  height: 25px;
+}
+
+::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.attr-time {
+  line-height: 14px;
+}
+
+.attr-time input[type="radio"] {
+  display: none;
+  margin: 10px;
+}
+
+.attr-time label:before {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  content: "";
+  background-color: $clr-white;
+  border-radius: 50%;
+  margin-right: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.attr-time input[type="radio"]:checked + label:before {
+  background-color: $clr-cyan-70;
+  border: 2px solid $clr-white;
+}
+
+.attr-time label {
+  margin-right: 13px;
+  display: inline-flex;
+  align-items: center;
+  color: $clr-gray-70;
+  font-size: $fs-16;
+  font-weight: $fw-regular;
+}
+
+.attr-price-price {
+  width: 108px;
+  font-size: $fs-16;
+  font-weight: $fw-regular;
+  line-height: 14px;
+  color: $clr-gray-70;
+  margin: 4px 0;
+}
+
+.attr-submit {
+  padding: 10px 20px;
+  background-color: $clr-cyan-70;
+  margin-top: 25px;
+  margin-bottom: 41px;
+  border-radius: 5px;
+  font-size: $fs-19;
+  font-weight: $fw-regular;
+  text-align: center;
+  border: none;
+  color: $clr-white;
+  line-height: 16px;
+  cursor: pointer;
+}
+
+.mt {
+  margin: 40px 0;
+}
+
+.des-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.des-info {
+  font-size: $fs-16;
+  font-weight: $fw-regular;
+  color: $clr-gray-70;
+  margin: 10px 10px 0;
+}
+
+.des-location,
+.des-trans {
+  margin: 20px 10px 0;
+  font-size: $fs-16;
+  font-weight: $fw-bold;
+  color: $clr-gray-70;
+}
+
+.des-location-info,
+.des-trans-info {
+  margin: 0 10px;
+  font-size: $fs-16;
+  font-weight: $fw-regular;
+  color: $clr-gray-70;
+}

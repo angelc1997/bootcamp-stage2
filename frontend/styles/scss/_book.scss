@@ -1,0 +1,156 @@
+.booking-title {
+  max-width: 1000px;
+  margin: 94px auto 0;
+}
+
+.booking-title-msg {
+  font-weight: $fw-bold;
+  font-size: $fs-19;
+  line-height: 16px;
+  color: $clr-gray-70;
+}
+
+.booking-empty {
+  display: none;
+  margin-top: 30px;
+  font-weight: $fw-regular;
+  font-size: $fs-16;
+  color: $clr-gray-70;
+}
+
+.booking-container,
+.booking-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  position: relative;
+  margin-top: 30px;
+}
+
+.booking-image {
+  margin-right: 30px;
+
+  img {
+    width: 250px;
+    height: 200px;
+    object-fit: cover;
+  }
+}
+
+.booking-subtitle {
+  max-width: 700px;
+  margin-bottom: 20px;
+  font-weight: $fw-bold;
+  font-size: $fs-16;
+  color: $clr-cyan-70;
+}
+
+.booking-icon img {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.booking {
+  font-weight: $fw-bold;
+  font-size: $fs-16;
+  color: $clr-gray-70;
+  margin-top: 10px;
+}
+
+.booking-text {
+  margin-left: 5px;
+  font-weight: $fw-regular;
+  font-size: $fs-16;
+  color: $clr-gray-70;
+}
+
+.booking-contact-title,
+.booking-payment-title {
+  font-weight: $fw-bold;
+  font-size: $fs-19;
+  color: $clr-gray-70;
+}
+
+.input-group {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+
+  label {
+    font-weight: $fw-regular;
+    font-size: $fs-16;
+    color: $clr-gray-70;
+  }
+
+  input {
+    width: 200px;
+    height: 16px;
+    border-radius: 5px;
+    border: 1px solid $clr-gray-20;
+    padding: 10px;
+    font-weight: $fw-medium;
+    font-size: $fs-16;
+    color: $clr-black;
+  }
+}
+
+.booking-contact-msg {
+  margin-top: 20px;
+  font-weight: $fw-bold;
+  font-size: $fs-16;
+  color: $clr-gray-70;
+}
+
+.booking-submit {
+  width: 980px;
+  display: block;
+  text-align: right;
+
+  button {
+    width: 173px;
+    padding: 10px 20px;
+    background-color: $clr-cyan-70;
+    margin: 22px 0;
+    border: none;
+    color: $clr-white;
+    border-radius: $border-radius;
+    font-size: $fs-16;
+    font-weight: $fw-regular;
+    text-align: center;
+    line-height: 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $clr-cyan-50;
+    }
+  }
+}
+
+.booking-sum {
+  font-weight: $fw-bold;
+  font-size: $fs-16;
+  color: $clr-gray-70;
+  text-align: right;
+  height: 20px;
+}
+
+/* TapPay */
+
+.tpfield {
+  width: 200px;
+  height: 16px;
+  border-radius: $border-radius;
+  border: 1px solid $clr-gray-20;
+  padding: 10px;
+  font-weight: $fw-medium;
+  font-size: $fs-16;
+  color: $clr-black;
+
+  &:focus {
+    border: 2px solid $clr-black;
+  }
+}

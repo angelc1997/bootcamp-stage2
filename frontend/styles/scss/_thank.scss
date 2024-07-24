@@ -1,0 +1,39 @@
+.pay-container {
+  max-width: 600px;
+  margin: 250px auto;
+  border: 1px solid $clr-gray-20;
+  border-radius: $border-radius;
+  padding: 50px;
+}
+
+.pay-title {
+  text-align: center;
+  font-size: $fs-24;
+  font-weight: $fw-bold;
+  color: $clr-cyan-50;
+  margin-bottom: 20px;
+}
+
+.pay-subtitle,
+.pay-subtitle span {
+  font-size: $fs-20;
+  text-align: center;
+}
+
+.pay {
+  margin: 0 auto;
+  width: 100%;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: $fs-16;
+    color: $clr-gray-70;
+
+    span {
+      color: $clr-black;
+    }
+  }
+}

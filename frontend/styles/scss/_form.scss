@@ -1,0 +1,105 @@
+.form-background {
+  background-color: rgba(0, 0, 0, 0.25);
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  visibility: hidden;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 340px;
+  border-radius: 6px;
+  background-color: $clr-white;
+  box-shadow: 0px 4px 60px 0px $clr-gray-20;
+  z-index: 3;
+}
+
+.form-border {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(to right, #66aabb, #337788);
+  border-radius: 6px 6px 0 0;
+}
+
+#form-login,
+#form-signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 25px 15px 15px 15px;
+}
+
+.form-title {
+  width: 310px;
+  font-size: $fs-24;
+  font-weight: $fw-bold;
+  color: $clr-gray-70;
+  text-align: center;
+  line-height: 27px;
+}
+
+.form-cancel-icon img {
+  position: absolute;
+  top: 27px;
+  right: 17px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+#form-login input,
+#form-signup input {
+  width: 278px;
+  margin-top: 10px;
+  border: 1px solid $clr-gray-20;
+  border-radius: $border-radius;
+}
+
+#form-login #input-name,
+#input-email,
+#input-password,
+#input-signUp-name,
+#input-signUp-email,
+#input-signUp-password {
+  padding: 13px 15px;
+}
+
+#form-login #input-sumbit,
+#form-signup #signup-sumbit {
+  width: 310px;
+  height: 47px;
+  padding: 10px 20px 10px 20px;
+  background: $clr-cyan-70;
+  font-size: $fs-19;
+  font-weight: $fw-regular;
+  text-align: center;
+  color: $clr-white;
+  cursor: pointer;
+}
+
+.form-SignUpLink {
+  width: 310px;
+  margin-top: 10px;
+  font-size: $fs-16;
+  font-weight: $fw-medium;
+  text-align: center;
+
+  a {
+    text-decoration: none;
+    color: $clr-gray-70;
+    height: 22px;
+    cursor: pointer;
+  }
+}

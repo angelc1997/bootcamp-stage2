@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles/style.css" />
+    <link rel="preload" as="style" href="../styles/style.css" />
+    <script src="../scripts/form.js" defer></script>
+    <script src="../scripts/userAuth.js" defer></script>
+    <script src="../scripts/attraction.js" defer></script>
+    <script src="../scripts/booking.js" defer></script>
+    <link rel="preload" as="script" href="/scripts/attraction.js" />
+
+    <title>Attraction</title>
+  </head>
+  <body>
+       <!-- Navbar -->
+       <div class="navbar-fixed">
+        <div class="navbar-container">
+          <div class="navbar">
+            <nav>
+              <a href="/" id="navbar-brand">
+                <span class="circle1"></span>
+                <span class="circle2"></span>
+                台北一日遊
+              </a>
+            </nav>
+            <div class="navbar-items">
+              <ul class="flex">
+                <li><a href="/spot">逛逛景點</a></li>
+                <li>
+                  <a
+                    href="/booking"
+                    id="navbar-booking"
+                    onclick="showBookingCart()"
+                    >預定行程</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="/thankyou"
+                    id="navbar-favourite"
+                    onclick="showOrderList()"
+                    >已訂購行程</a
+                  >
+                </li>
+                <li>
+                  <a id="navbar-login" onclick="showLoginForm()">註冊/登入</a>
+                  <a id="navbar-logout" style="display: none" onclick="logout()"
+                    >登出系統</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+
+
+
+
+    <!-- Content -->
+    <div class="attr-container">
+      <!-- Slider -->
+        <div class="slides-container">
+          <div class="slides">
+            <!-- <img src="https://picsum.photos/id/237/400/200" alt="" /> -->
+          </div>
+    
+
+          <!-- prev and next -->
+          <a class="prev" onclick="plusSlides(-1)"> <img src="../assets/icons/icon-hovered-left.png" alt=""> </a>
+          <a class="next" onclick="plusSlides(1)"> <img src="../assets/icons/icon-hovered-right.png" alt=""> </a>
+
+        
+    
+        
+
+       <!-- dots -->
+        <div class="dots-container">
+          <!-- <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span> -->
+        </div>
+
+      </div>
+      
+     
+        <!-- Attraction -->
+
+        <div class="attr-content">
+          <div class="attr-title"></div>
+          <div class="attr-sub">
+            <div class="attr-category"></div>
+            <div class="attr-en">at</div>
+            <div class="attr-mrt"></div>
+          </div>
+
+          <div class="attr-reservation">
+            <div class="attr-subtitle">訂購導覽行程</div>
+            <div class="attr-des">
+              以此景點為中心的一日行程，帶您探索城市角落故事
+            </div>
+
+            <div class="attr-date">
+              <div class="attr-date-title">選擇日期：</div>
+              <input type="date" id="attr-reserve-date" />
+            </div>
+
+            <div class="attr-time">
+              <div class="attr-time-title">選擇時間：</div>
+              <input
+                type="radio"
+                id="morning"
+                name="attr-reserv-time"
+                value="新台幣 2000 元"
+                checked
+              />
+              <label id="morning-label" for="morning">上半天</label>
+
+              <input
+                type="radio"
+                id="afternoon"
+                name="attr-reserv-time"
+                value="新台幣 2500 元"
+              />
+              <label id="afternoon-label" for="afternoon">下半天</label>
+            </div>
+
+            <div class="attr-price">
+              <div class="attr-price-title">導覽費用：</div>
+              <div class="attr-price-price">新台幣 2000 元</div>
+            </div>
+
+            <button id="book-btn" type="submit" class="attr-submit" onclick="postNewBooking()">開始預約行程</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <hr />
+      <div class="mt">
+        <div class="des-container">
+          <div class="des-info">
+           
+          </div>
+
+          <div class="des-location">景點地址：</div>
+          <div class="des-location-info"></div>
+          <div class="des-trans">景點地址：</div>
+          <div class="des-trans-info">
+    
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!--Login Form-->
+    <div class="form-background" id="login-form-bg">
+      <div class="form-container">
+        <div class="form-border"></div>
+        <form id="form-login" action="put" onsubmit="submitLoginForm(event)">
+          <div class="form-title">登入會員帳號</div>
+          <div class="form-cancel-icon" onclick="closeLoginForm()">
+            <img src="../assets/icons/icon-cancel.png" alt="icon-cancel" />
+          </div>
+
+          <input
+            id="input-email"
+            type="email"
+            placeholder="輸入電子信箱"
+            required
+          />
+          <input
+            id="input-password"
+            type="password"
+            placeholder="輸入密碼"
+            required
+            autocomplete="on"
+          />
+          <input id="input-sumbit" type="submit" value="登入帳戶" />
+          <div
+            id="login-message"
+            class="form-highlight"
+            style="display: none; margin-top: 5px"
+          ></div>
+          <div class="form-SignUpLink">
+            <a onclick="showSignUpForm()">還沒有帳戶?點此註冊</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <br />
+
+    <div class="form-background" id="signup-form-bg">
+      <div class="form-container">
+        <div class="form-border"></div>
+        <form id="form-signup" action="" onsubmit="submitSignUpForm(event)">
+          <div class="form-title">註冊會員帳號</div>
+          <div class="form-cancel-icon" onclick="closeSignUpForm()">
+            <img src="../assets/icons/icon-cancel.png" alt="icon-cancel" />
+          </div>
+          <input
+            id="input-signUp-name"
+            type="text"
+            placeholder="輸入姓名"
+            required
+          />
+          <input
+            id="input-signUp-email"
+            type="email"
+            placeholder="輸入電子信箱"
+            required
+          />
+          <input
+            id="input-signUp-password"
+            type="password"
+            placeholder="輸入密碼"
+            required
+            autocomplete="on"
+          />
+          <input id="signup-sumbit" type="submit" value="註冊新帳戶" />
+          <div
+            id="signup-message"
+            class="form-highlight"
+            style="display: none; margin-top: 5px"
+          ></div>
+          <div class="form-SignUpLink">
+            <div class="form-highlight"></div>
+            <a onclick="showLoginForm()">已經有帳戶了？點此登入</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-text">COPYRIGHT © 2024 台北一日遊</div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+          showLogoutButton();
+        }
+      });
+    </script>
+    
+  </body>
+</html>
